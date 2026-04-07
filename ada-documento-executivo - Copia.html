@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADA — Documento Executivo</title>
+  <style>
+    :root {
+      --page-width: 210mm;
+      --page-height: 297mm;
+      --page-padding-y: 12mm;
+      --page-padding-x: 14mm;
+      --ink: #14253a;
+      --muted: #5d6b7b;
+      --line: #d8e1ea;
+      --line-strong: #bac8d8;
+      --accent: #123c66;
+      --accent-soft: #edf3f8;
+      --accent-faint: #f7fafc;
+      --panel: #ffffff;
+      --screen: #eef2f6;
+      --shadow: 0 20px 48px rgba(20, 37, 58, 0.12);
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--screen);
+      color: var(--ink);
+      font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .sheet {
+      width: var(--page-width);
+      min-height: var(--page-height);
+      padding: var(--page-padding-y) var(--page-padding-x);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 5mm;
+      overflow: hidden;
+    }
+
+    .section,
+    .comparison-panel,
+    .impact-item,
+    .phase {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .header {
+      padding-bottom: 4mm;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 3mm;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 145mm;
+      font-size: 27px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin-top: 2.4mm;
+      max-width: 130mm;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 8mm;
+      margin-bottom: 3mm;
+    }
+
+    .section-heading h2,
+    .risk h2,
+    .impact h2,
+    .timeline h2 {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-heading p,
+    .timeline-intro {
+      max-width: 100mm;
+      font-size: 10px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    /* Comparativo central */
+    .comparison-panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 36mm 1fr 1fr;
+    }
+
+    .cell {
+      padding: 2.8mm 4mm;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      min-height: 11.2mm;
+      display: flex;
+      align-items: center;
+    }
+
+    .comparison-grid .cell:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .comparison-grid .cell.metric:nth-last-child(-n + 3),
+    .comparison-grid .cell.value:nth-last-child(-n + 2),
+    .comparison-grid .cell.value-new:last-child {
+      border-bottom: 0;
+    }
+
+    .header-blank {
+      background: #fbfcfd;
+    }
+
+    .header-cell {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      justify-content: center;
+      text-align: center;
+      background: #fbfcfd;
+    }
+
+    .header-cell.new {
+      background: linear-gradient(180deg, #f2f7fb 0%, #edf3f8 100%);
+    }
+
+    .metric {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      background: #fbfcfd;
+    }
+
+    .value,
+    .value-new {
+      justify-content: center;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .value {
+      color: #233347;
+    }
+
+    .value-new {
+      color: var(--accent);
+      background: linear-gradient(180deg, #f7fafc 0%, #eef4f9 100%);
+    }
+
+    .comparison-note {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6mm;
+      align-items: center;
+      padding-top: 2mm;
+    }
+
+    .comparison-note p {
+      font-size: 10px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .comparison-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2.4mm 3.2mm;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-faint);
+      white-space: nowrap;
+    }
+
+    /* Impacto na operação */
+    .impact {
+      padding-top: 0;
+    }
+
+    .impact h2 {
+      margin-bottom: 3mm;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.2mm 4mm;
+    }
+
+    .impact-item {
+      padding-top: 2.4mm;
+      border-top: 1px solid var(--line);
+    }
+
+    .impact-item:nth-child(-n + 2) {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .impact-item.wide {
+      grid-column: 1 / -1;
+    }
+
+    .impact-item h3 {
+      margin-bottom: 1.5mm;
+      font-size: 11px;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .impact-item p {
+      font-size: 9.6px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    /* Risco */
+    .risk {
+      padding: 4mm 4.5mm;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      background: var(--accent-faint);
+    }
+
+    .risk h2 {
+      margin-bottom: 2.2mm;
+    }
+
+    .risk p {
+      font-size: 10.2px;
+      line-height: 1.55;
+      color: #24364a;
+    }
+
+    /* Plano de execução */
+    .timeline {
+      display: grid;
+      gap: 3mm;
+    }
+
+    .timeline-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 8mm;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3mm;
+    }
+
+    .phase {
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 3.4mm;
+      background: #fff;
+      min-height: 34mm;
+    }
+
+    .phase-title {
+      margin-bottom: 2mm;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .phase ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 1.6mm;
+    }
+
+    .phase li {
+      position: relative;
+      padding-left: 3.5mm;
+      font-size: 9.2px;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .phase li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 1.5mm;
+      height: 1.5mm;
+      border-radius: 50%;
+      background: var(--accent);
+      transform: translateY(-50%);
+    }
+
+    /* Rodapé */
+    .cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8mm;
+      padding-top: 3mm;
+      border-top: 1px solid var(--line);
+    }
+
+    .cta-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .cta p {
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    @media screen and (max-width: 980px) {
+      body {
+        padding: 0;
+        background: #fff;
+      }
+
+      .sheet {
+        width: 100%;
+        min-height: 100vh;
+        padding: 24px 20px 28px;
+        box-shadow: none;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      html,
+      body {
+        background: #fff;
+      }
+
+      body {
+        display: block;
+        padding: 0;
+        width: 210mm;
+        height: 296mm;
+        overflow: hidden;
+      }
+
+      .sheet {
+        width: 210mm;
+        height: 296mm;
+        min-height: 296mm;
+        box-shadow: none;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet" role="document" aria-label="Documento executivo ADA">
+    <!-- Header -->
+    <header class="header section">
+      <p class="eyebrow">Documento Executivo</p>
+      <h1>ADA — Nova abordagem para construção do ERP</h1>
+      <p class="subtitle">Redução de custo, prazo e desbloqueio real de IA operacional</p>
+    </header>
+
+    <!-- Comparativo central -->
+    <section class="section" aria-labelledby="comparativo-title">
+      <div class="section-heading">
+        <h2 id="comparativo-title">Comparativo executivo</h2>
+        <p>Substitui um ciclo longo, rígido e caro por uma construção mais curta, evolutiva e preparada para uso real de IA desde a base.</p>
+      </div>
+
+      <div class="comparison-panel">
+        <div class="comparison-grid" role="table" aria-label="Comparativo entre modelo tradicional e nova abordagem">
+          <div class="cell header-blank" aria-hidden="true"></div>
+          <div class="cell header-cell" role="columnheader">Modelo Tradicional</div>
+          <div class="cell header-cell new" role="columnheader">Nova Abordagem</div>
+
+          <div class="cell metric" role="rowheader">Tempo</div>
+          <div class="cell value" role="cell">~5 anos</div>
+          <div class="cell value-new" role="cell">~6 meses</div>
+
+          <div class="cell metric" role="rowheader">Custo</div>
+          <div class="cell value" role="cell">~R$ 5 milhões</div>
+          <div class="cell value-new" role="cell">~30%</div>
+
+          <div class="cell metric" role="rowheader">Evolução</div>
+          <div class="cell value" role="cell">Lenta</div>
+          <div class="cell value-new" role="cell">Rápida</div>
+
+          <div class="cell metric" role="rowheader">IA</div>
+          <div class="cell value" role="cell">Limitada</div>
+          <div class="cell value-new" role="cell">Nativa</div>
+
+          <div class="cell metric" role="rowheader">Dependência técnica</div>
+          <div class="cell value" role="cell">Alta</div>
+          <div class="cell value-new" role="cell">Baixa</div>
+        </div>
+      </div>
+
+      <div class="comparison-note">
+        <p>A mudança principal não é apenas de tecnologia, mas de modelo operacional: menor ciclo de entrega, mais controle de evolução e melhor aderência ao uso prático de IA.</p>
+        <span class="comparison-badge">Menor risco estrutural</span>
+      </div>
+    </section>
+
+    <!-- Impacto direto na operação -->
+    <section class="impact section" aria-labelledby="impacto-title">
+      <h2 id="impacto-title">Impacto direto na operação</h2>
+      <div class="impact-grid">
+        <article class="impact-item">
+          <h3>IA especialista 24/7 para a operação</h3>
+          <p>Reduz dependência de conhecimento interno e aumenta autonomia dos times na rotina crítica.</p>
+        </article>
+
+        <article class="impact-item">
+          <h3>Relatórios sob demanda em tempo real</h3>
+          <p>Elimina tempo entre pergunta e resposta, acelerando decisões e reduzindo espera por consolidações manuais.</p>
+        </article>
+
+        <article class="impact-item">
+          <h3>Automação inteligente de grandes volumes</h3>
+          <p>Aumenta eficiência operacional e potencial de recuperação financeira em frentes como retido e exceções recorrentes.</p>
+        </article>
+
+        <article class="impact-item">
+          <h3>Hub integrado de operações com N8N</h3>
+          <p>Conecta sistemas internos e externos sem fricção, reduzindo retrabalho e pontos de ruptura entre áreas.</p>
+        </article>
+
+        <article class="impact-item wide">
+          <h3>Desenvolvimento até 10x mais rápido</h3>
+          <p>Reduz backlog, encurta o tempo até captura de valor e permite evolução contínua do ERP com mais previsibilidade.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Bloco de risco -->
+    <aside class="risk section" aria-labelledby="risco-title">
+      <h2 id="risco-title">Risco da decisão tradicional</h2>
+      <p>Investir anos e milhões em um sistema que já nasce desalinhado com o uso real de IA, criando nova dependência técnica e limitando ganhos operacionais futuros.</p>
+    </aside>
+
+    <!-- Plano de execução -->
+    <section class="timeline section" aria-labelledby="execucao-title">
+      <div class="timeline-top">
+        <h2 id="execucao-title">Plano de execução | 6 meses</h2>
+        <p class="timeline-intro">Entrega progressiva com geração de valor desde os primeiros ciclos, reduzindo risco de implantação concentrada no fim do projeto.</p>
+      </div>
+
+      <div class="timeline-grid">
+        <article class="phase">
+          <div class="phase-title">Mês 1–2</div>
+          <ul>
+            <li>Levantamento estruturado de regras e processos</li>
+            <li>Modelagem dos módulos principais</li>
+          </ul>
+        </article>
+
+        <article class="phase">
+          <div class="phase-title">Mês 3–4</div>
+          <ul>
+            <li>Construção dos módulos críticos</li>
+            <li>IA operando como suporte interno</li>
+          </ul>
+        </article>
+
+        <article class="phase">
+          <div class="phase-title">Mês 5–6</div>
+          <ul>
+            <li>ERP funcional consolidado</li>
+            <li>Automações e relatórios inteligentes</li>
+            <li>Go-live assistido</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Call to action -->
+    <footer class="cta">
+      <span class="cta-label">Próximo passo</span>
+      <p>Validação do escopo inicial e definição do primeiro módulo piloto.</p>
+    </footer>
+  </main>
+</body>
+</html>

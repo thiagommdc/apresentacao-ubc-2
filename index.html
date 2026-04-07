@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arquitetura de IA Nativa para a UBC</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #dbe4f0;
+      --accent: #0f2c59;
+      --accent-2: #f9b572;
+      --shadow: 0 18px 45px rgba(15, 44, 89, 0.12);
+      --radius: 20px;
+      --slide-width: 1280;
+      --slide-base-height: 720;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(249, 181, 114, 0.22), transparent 24rem),
+        linear-gradient(180deg, #f8fbff 0%, #eef3f9 100%);
+    }
+
+    .page {
+      width: min(1320px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      margin-bottom: 28px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(219, 228, 240, 0.9);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(15, 44, 89, 0.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .title-group h1 {
+      margin: 0;
+      font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+      color: var(--accent);
+    }
+
+    .title-group p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(15, 44, 89, 0.18);
+    }
+
+    .secondary-btn {
+      background: #e8eef7;
+      color: var(--accent);
+    }
+
+    .slides {
+      display: grid;
+      gap: 28px;
+    }
+
+    .slide-content {
+      background: var(--panel);
+      border: 1px solid rgba(219, 228, 240, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .slide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .slide-header span:last-child {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    .viewer {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #eef3fa;
+    }
+
+    .slide-audio-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 44, 89, 0.14);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--accent);
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(15, 44, 89, 0.16);
+      backdrop-filter: blur(10px);
+    }
+
+    .slide-audio-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .slide-audio-btn.is-playing {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .slide-audio-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .viewer iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(var(--slide-width) * 1px);
+      height: calc(var(--content-height, var(--slide-base-height)) * 1px);
+      border: 0;
+      display: block;
+      transform-origin: top left;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    body.presentation-mode {
+      background: #08111f;
+      overflow: hidden;
+    }
+
+    body.presentation-mode .page {
+      width: 100%;
+      max-width: none;
+      padding: 0;
+      height: 100vh;
+    }
+
+    body.presentation-mode .topbar {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      left: auto;
+      top: auto;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      pointer-events: none;
+    }
+
+    body.presentation-mode .title-group {
+      display: none;
+    }
+
+    body.presentation-mode .title-group h1,
+    body.presentation-mode .title-group p {
+      display: none;
+    }
+
+    body.presentation-mode .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(8, 17, 31, 0.38);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      pointer-events: auto;
+    }
+
+    body.presentation-mode .status,
+    body.presentation-mode .secondary-btn,
+    body.presentation-mode .primary-btn {
+      color: #e2e8f0;
+    }
+
+    body.presentation-mode .status {
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
+    body.presentation-mode .secondary-btn,
+    body.presentation-mode .primary-btn {
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: none;
+    }
+
+    body.presentation-mode .primary-btn {
+      background: rgba(15, 44, 89, 0.72);
+    }
+
+    body.presentation-mode .slides {
+      display: block;
+      height: 100vh;
+      padding-top: 0;
+    }
+
+    body.presentation-mode .slide-content {
+      display: none;
+      height: 100vh;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    body.presentation-mode .slide-content.is-active {
+      display: block;
+    }
+
+    body.presentation-mode .slide-header {
+      display: none;
+    }
+
+    body.presentation-mode .viewer {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      background: transparent;
+    }
+
+    body.presentation-mode .slide-audio-btn {
+      top: auto;
+      right: auto;
+      left: 16px;
+      bottom: 16px;
+      padding: 9px 12px;
+      background: rgba(8, 17, 31, 0.38);
+      color: #f8fafc;
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      font-size: 0.82rem;
+    }
+
+    body.presentation-mode .footer-note {
+      display: none;
+    }
+
+    @media (max-width: 780px) {
+      .page {
+        width: min(100% - 16px, 1320px);
+        padding-top: 16px;
+      }
+
+      .topbar {
+        top: 8px;
+        padding: 16px;
+      }
+
+      .toolbar {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .status {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="title-group">
+        <h1>Arquitetura de IA Nativa para a UBC</h1>
+        <p>26 páginas no total</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="status" id="status">Slide 1 de 27</div>
+        <button class="secondary-btn" id="syncBtn" type="button">Sincronizar áudio</button>
+        <button class="primary-btn" id="narrationBtn" type="button">Reproduzir slides</button>
+      </div>
+    </header>
+
+    <main class="slides" id="slides"></main>
+
+   
+  </div>
+
+  <script>
+    const SLIDES = [
+      "nB0PQEYf.html",
+      "Kmr3jZDu.html",
+      "frvUyhwJ.html",
+      "GCeNZoBG.html",
+      "9vp2cL12.html",
+      "Dqi2vZVD.html",
+      "OCj5UELa.html",
+      "nZp1g0De.html",
+      "EKsVgDy2.html",
+      "87PAeniu.html",
+      "8F0s1xO7.html",
+      "5L2hupai.html",
+      "xwHB20D7.html",
+      "U26dbJhO.html",
+      "5TgMfR03.html",
+      "2ikAmeEb.html",
+      "atulMZxw.html",
+      "kZ2oXcVV.html",
+      "tWRxEMsl.html",
+      "05pydRsW.html",
+      "a623Q2sq.html",
+      "AtqzdeYL.html",
+      // "ecV7fvkU.html",
+      "ZF87AtFn.html",
+      "FAvL7RUN.html",
+      "hqaaFIkT.html"
+    ];
+
+    const AUDIO_EVENT = {
+      enable: "SLIDE_AUDIO_ENABLE",
+      disable: "SLIDE_AUDIO_DISABLE",
+      sync: "SLIDE_AUDIO_SYNC"
+    };
+    const SLIDE_AUDIO_BY_NUMBER = {
+      1: "./Audios/Slide_1.m4a",
+      2: "./Audios/Slide_2.m4a",
+      3: "./Audios/Slide_3.m4a",
+      4: "./Audios/Slide_4.m4a",
+      5: "./Audios/Slide_5.m4a",
+      6: "./Audios/Slide_6.m4a",
+      7: "./Audios/Slide_7.m4a",
+      8: "./Audios/Slide_8.m4a",
+      9: "./Audios/Slide_9.m4a",
+      10: "./Audios/Slide_10.m4a",
+      11: "./Audios/Slide_11.m4a",
+      12: "./Audios/Slide_12.m4a",
+      13: "./Audios/Slide_13.m4a",
+      14: "./Audios/Slide_14.m4a",
+      15: "./Audios/Slide_15.m4a",
+      16: "./Audios/Slide_16.m4a",
+      17: "./Audios/Slide_17.m4a",
+      18: "./Audios/Slide_18.m4a",
+      19: "./Audios/Slide_19.m4a",
+      20: "./Audios/Slide_20.m4a",
+      21: "./Audios/Slide_21.m4a",
+      22: "./Audios/Slide_22.m4a",
+      23: "./Audios/Slide_23.m4a",
+      24: "./Audios/Slide_24.m4a",
+      25: "./Audios/Slide_25.m4a",
+    };
+
+    const slidesRoot = document.getElementById("slides");
+    const narrationBtn = document.getElementById("narrationBtn");
+    const syncBtn = document.getElementById("syncBtn");
+    const statusEl = document.getElementById("status");
+    const AUDIO_DEBUG_PREFIX = "[presentation-audio]";
+    const fallbackAudioPlayer = new Audio();
+    fallbackAudioPlayer.preload = "auto";
+
+    let narrationEnabled = false;
+    let presentationMode = false;
+    let currentSlideIndex = 0;
+    let activeSlideAudioButton = null;
+
+    function logAudioDebug(message, details) {
+      if (details === undefined) {
+        console.log(`${AUDIO_DEBUG_PREFIX} ${message}`);
+        return;
+      }
+
+      console.log(`${AUDIO_DEBUG_PREFIX} ${message}`, details);
+    }
+
+    function getSlideAudioSrc(slideNumber) {
+      return SLIDE_AUDIO_BY_NUMBER[slideNumber] || null;
+    }
+
+    function getSlideCards() {
+      return [...document.querySelectorAll(".slide-content")];
+    }
+
+    function clampSlideIndex(index) {
+      return Math.max(0, Math.min(index, SLIDES.length - 1));
+    }
+
+    function getViewportSlideIndex(cards = getSlideCards()) {
+      if (!cards.length) {
+        return 0;
+      }
+
+      const viewportCenter = window.innerHeight / 2;
+      let activeIndex = 0;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(cardCenter - viewportCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      return activeIndex;
+    }
+
+    function updateSlideAudioButtons() {
+      document.querySelectorAll(".slide-audio-btn").forEach((button) => {
+        const isPlaying = button === activeSlideAudioButton && !fallbackAudioPlayer.paused;
+        button.classList.toggle("is-playing", isPlaying);
+        button.textContent = isPlaying ? "Pausar áudio" : "Tocar áudio";
+      });
+    }
+
+    function stopFallbackAudio() {
+      fallbackAudioPlayer.pause();
+      fallbackAudioPlayer.currentTime = 0;
+      activeSlideAudioButton = null;
+      updateSlideAudioButtons();
+    }
+
+    async function toggleSlideAudio(slideNumber, button) {
+      const audioSrc = getSlideAudioSrc(slideNumber);
+      if (!audioSrc) {
+        logAudioDebug("slide sem áudio disponível", { slideNumber });
+        return;
+      }
+
+      if (activeSlideAudioButton === button && !fallbackAudioPlayer.paused) {
+        stopFallbackAudio();
+        return;
+      }
+
+      fallbackAudioPlayer.pause();
+      fallbackAudioPlayer.src = audioSrc;
+      fallbackAudioPlayer.currentTime = 0;
+      activeSlideAudioButton = button;
+      updateSlideAudioButtons();
+
+      try {
+        await fallbackAudioPlayer.play();
+        logAudioDebug("áudio alternativo iniciado pelo botão do slide", {
+          slideNumber,
+          audioSrc
+        });
+        updateSlideAudioButtons();
+      } catch (error) {
+        logAudioDebug("falha ao tocar áudio alternativo", {
+          slideNumber,
+          audioSrc,
+          error
+        });
+        activeSlideAudioButton = null;
+        updateSlideAudioButtons();
+      }
+    }
+
+    function buildSlides() {
+      const fragment = document.createDocumentFragment();
+
+      SLIDES.forEach((fileName, index) => {
+        const src = `./Genspark_files/${fileName}`;
+        const slideNumber = index + 1;
+        const audioSrc = getSlideAudioSrc(slideNumber);
+
+        const card = document.createElement("section");
+        card.className = "slide-content";
+
+        const header = document.createElement("div");
+        header.className = "slide-header";
+        header.innerHTML = `<span>${index + 1} / ${SLIDES.length}</span><span>Slide ${index + 1}</span>`;
+
+        const viewer = document.createElement("div");
+        viewer.className = "viewer";
+        viewer.dataset.src = src;
+        viewer.style.setProperty("--content-height", "720");
+
+        const slideAudioBtn = document.createElement("button");
+        slideAudioBtn.className = "slide-audio-btn";
+        slideAudioBtn.type = "button";
+        slideAudioBtn.textContent = "Tocar áudio";
+        slideAudioBtn.disabled = !audioSrc;
+        slideAudioBtn.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleSlideAudio(slideNumber, slideAudioBtn);
+        });
+
+        const iframe = document.createElement("iframe");
+        iframe.src = src;
+        iframe.loading = index < 3 ? "eager" : "lazy";
+        iframe.referrerPolicy = "origin";
+        iframe.title = `Slide ${slideNumber}`;
+        iframe.dataset.slideIndex = String(index + 1);
+        iframe.addEventListener("load", () => {
+          logAudioDebug("iframe carregado", {
+            slide: slideNumber,
+            src
+          });
+        });
+        iframe.addEventListener("error", (error) => {
+          logAudioDebug("erro ao carregar iframe", {
+            slide: slideNumber,
+            src,
+            error
+          });
+        });
+
+        viewer.append(slideAudioBtn, iframe);
+        card.append(header, viewer);
+        fragment.appendChild(card);
+      });
+
+      slidesRoot.appendChild(fragment);
+      updateViewerScale();
+      updateCurrentSlide();
+    }
+
+    function updateViewerScale() {
+      document.querySelectorAll(".viewer").forEach((viewer) => {
+        const contentHeight = Number(viewer.style.getPropertyValue("--content-height") || 720);
+        const scaleX = viewer.clientWidth / 1280 || 1;
+        const scaleY = viewer.clientHeight / contentHeight || 1;
+        const iframe = viewer.querySelector("iframe");
+
+        if (presentationMode) {
+          viewer.style.height = "";
+        } else {
+          viewer.style.height = `${contentHeight * scaleX}px`;
+        }
+
+        if (iframe) {
+          iframe.style.left = "0";
+          iframe.style.top = "0";
+          iframe.style.transform = presentationMode
+            ? `scale(${scaleX}, ${scaleY})`
+            : `scale(${scaleX})`;
+        }
+      });
+    }
+
+    function postToSlides(type) {
+      document.querySelectorAll(".viewer iframe").forEach((iframe) => {
+        try {
+          logAudioDebug("enviando evento para iframe", {
+            type,
+            slide: Number(iframe.dataset.slideIndex),
+            src: iframe.src
+          });
+          iframe.contentWindow?.postMessage({ type }, "*");
+        } catch (error) {
+          logAudioDebug("falha ao enviar evento para iframe", {
+            type,
+            slide: Number(iframe.dataset.slideIndex),
+            src: iframe.src,
+            error
+          });
+        }
+      });
+    }
+
+    function syncNarration() {
+      if (!narrationEnabled) {
+        logAudioDebug("sync ignorado porque a narração está desativada");
+        return;
+      }
+
+      logAudioDebug("sincronizando narração");
+      postToSlides(AUDIO_EVENT.enable);
+      [0, 60, 180, 400].forEach((delay) => {
+        window.setTimeout(() => postToSlides(AUDIO_EVENT.sync), delay);
+      });
+    }
+
+    function setNarration(enabled) {
+      narrationEnabled = enabled;
+      narrationBtn.textContent = enabled ? "Parar narração" : "Reproduzir slides";
+      logAudioDebug("estado da narração alterado", {
+        enabled,
+        presentationMode,
+        fullscreen: Boolean(document.fullscreenElement)
+      });
+
+      if (enabled) {
+        postToSlides(AUDIO_EVENT.enable);
+        syncNarration();
+        return;
+      }
+
+      postToSlides(AUDIO_EVENT.disable);
+      stopFallbackAudio();
+    }
+
+    function updateCurrentSlide() {
+      const cards = getSlideCards();
+      if (!cards.length) {
+        return;
+      }
+
+      if (!presentationMode) {
+        currentSlideIndex = getViewportSlideIndex(cards);
+      }
+
+      const activeIndex = clampSlideIndex(currentSlideIndex);
+      cards.forEach((card, index) => {
+        const isActive = presentationMode && index === activeIndex;
+        card.classList.toggle("is-active", isActive);
+        card.setAttribute("aria-hidden", String(presentationMode && !isActive));
+      });
+
+      statusEl.textContent = `Slide ${activeIndex + 1} de ${SLIDES.length}`;
+      logAudioDebug("slide ativo atualizado", {
+        activeSlide: activeIndex + 1,
+        narrationEnabled,
+        presentationMode
+      });
+    }
+
+    function goToSlide(index) {
+      const nextIndex = clampSlideIndex(index);
+      if (nextIndex === currentSlideIndex && presentationMode) {
+        return;
+      }
+
+      currentSlideIndex = nextIndex;
+      updateCurrentSlide();
+      updateViewerScale();
+
+      if (presentationMode) {
+        syncNarration();
+      }
+    }
+
+    function throttle(fn, wait) {
+      let lastRun = 0;
+      let timer = null;
+
+      return () => {
+        const now = Date.now();
+        const remaining = wait - (now - lastRun);
+
+        if (remaining <= 0) {
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          }
+          lastRun = now;
+          fn();
+          return;
+        }
+
+        if (!timer) {
+          timer = window.setTimeout(() => {
+            lastRun = Date.now();
+            timer = null;
+            fn();
+          }, remaining);
+        }
+      };
+    }
+
+    async function enterFullscreen() {
+      const element = document.documentElement;
+      if (document.fullscreenElement || !element.requestFullscreen) {
+        return;
+      }
+
+      try {
+        await element.requestFullscreen();
+      } catch (error) {
+      }
+    }
+
+    async function exitFullscreen() {
+      if (!document.fullscreenElement || !document.exitFullscreen) {
+        return;
+      }
+
+      try {
+        await document.exitFullscreen();
+      } catch (error) {
+      }
+    }
+
+    function setPresentationModeLegacy(enabled) {
+      presentationMode = enabled;
+      document.body.classList.toggle("presentation-mode", enabled);
+      logAudioDebug("modo de apresentação alterado", { enabled });
+      updateViewerScale();
+      updateCurrentSlide();
+    }
+
+    function setPresentationMode(enabled) {
+      const cards = getSlideCards();
+      if (enabled) {
+        currentSlideIndex = getViewportSlideIndex(cards);
+      }
+
+      presentationMode = enabled;
+      document.body.classList.toggle("presentation-mode", enabled);
+      updateCurrentSlide();
+      updateViewerScale();
+
+      if (!enabled) {
+        cards[currentSlideIndex]?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    window.addEventListener("message", (event) => {
+      if (!event.data || event.data.type !== "resize" || !event.data.url) {
+        return;
+      }
+
+      const viewer = document.querySelector(`.viewer[data-src="${event.data.url}"]`);
+      if (!viewer) {
+        logAudioDebug("mensagem de resize recebida sem viewer correspondente", event.data);
+        return;
+      }
+
+      const nextHeight = Math.max(720, Math.min(Number(event.data.height) || 720, 2160));
+      logAudioDebug("resize recebido do slide", {
+        url: event.data.url,
+        nextHeight
+      });
+      viewer.style.setProperty("--content-height", String(nextHeight));
+      updateViewerScale();
+    });
+
+    const handleViewportChange = throttle(() => {
+      updateViewerScale();
+      updateCurrentSlide();
+      syncNarration();
+    }, 120);
+
+    narrationBtn.addEventListener("click", async () => {
+      const nextState = !narrationEnabled;
+      logAudioDebug("clique no botão de narração", { nextState });
+
+      if (nextState) {
+        setPresentationMode(true);
+        await enterFullscreen();
+      } else {
+        setPresentationMode(false);
+        await exitFullscreen();
+      }
+
+      setNarration(nextState);
+    });
+
+    syncBtn.addEventListener("click", () => {
+      logAudioDebug("clique no botão de sincronizar áudio");
+      syncNarration();
+    });
+
+    fallbackAudioPlayer.addEventListener("ended", () => {
+      activeSlideAudioButton = null;
+      updateSlideAudioButtons();
+    });
+
+    fallbackAudioPlayer.addEventListener("pause", () => {
+      updateSlideAudioButtons();
+    });
+
+    document.addEventListener("click", () => {
+      if (narrationEnabled) {
+        window.setTimeout(syncNarration, 50);
+      }
+    }, true);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setPresentationMode(false);
+        exitFullscreen();
+        setNarration(false);
+        return;
+      }
+
+      if (presentationMode) {
+        if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(event.key)) {
+          event.preventDefault();
+          goToSlide(currentSlideIndex + 1);
+          return;
+        }
+
+        if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          goToSlide(currentSlideIndex - 1);
+          return;
+        }
+
+        if (event.key === "Home") {
+          event.preventDefault();
+          goToSlide(0);
+          return;
+        }
+
+        if (event.key === "End") {
+          event.preventDefault();
+          goToSlide(SLIDES.length - 1);
+          return;
+        }
+      }
+
+      if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", " ", "Enter"].includes(event.key)) {
+        syncNarration();
+      }
+    }, true);
+
+    window.addEventListener("resize", handleViewportChange);
+    window.addEventListener("scroll", handleViewportChange, { passive: true });
+    window.addEventListener("wheel", handleViewportChange, { passive: true });
+    window.addEventListener("touchend", handleViewportChange, { passive: true });
+    window.addEventListener("beforeunload", () => setNarration(false));
+    window.addEventListener("pagehide", () => setNarration(false));
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement && narrationEnabled) {
+        setPresentationMode(false);
+      }
+      handleViewportChange();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        setPresentationMode(false);
+        setNarration(false);
+      } else {
+        syncNarration();
+      }
+    });
+
+    buildSlides();
+  </script>
+</body>
+</html>

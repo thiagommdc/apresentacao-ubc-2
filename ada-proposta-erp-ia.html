@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADA - Proposta de Construção do ERP com Arquitetura Orientada a IA</title>
+  <style>
+    :root {
+      --page-width: 210mm;
+      --page-height: 297mm;
+      --page-safe-height: 296.4mm;
+      --page-padding-x: 14mm;
+      --page-padding-y: 12mm;
+      --accent: #0f2c59;
+      --accent-2: #f9b572;
+      --accent-soft: #eef3fb;
+      --accent-faint: rgba(15, 44, 89, 0.06);
+      --text: #454545;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --line-soft: #f3f4f6;
+      --surface: #ffffff;
+      --surface-soft: #f8f9fa;
+      --page-bg: #f8f9fa;
+      --shadow: 0 18px 42px rgba(15, 44, 89, 0.10);
+      --shadow-card: 0 10px 24px rgba(15, 44, 89, 0.08);
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--page-bg);
+      color: var(--text);
+      font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    ul {
+      margin: 0;
+    }
+
+    .document {
+      display: grid;
+      gap: 18px;
+    }
+
+    .page {
+      position: relative;
+      width: var(--page-width);
+      min-height: var(--page-safe-height);
+      height: var(--page-safe-height);
+      background: var(--surface);
+      border: 0;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      break-after: page;
+      page-break-after: always;
+    }
+
+    .page:last-child {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .page::before {
+      top: 0;
+      right: 0;
+      width: 18mm;
+      height: 100%;
+      border-radius: 0;
+      background: var(--page-bg);
+    }
+
+    .page::after {
+      top: 0;
+      right: 18mm;
+      left: auto;
+      bottom: auto;
+      width: 1.8mm;
+      height: 100%;
+      border-radius: 0;
+      background: rgba(249, 181, 114, 0.28);
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      padding: 9.5mm 13mm 10.5mm;
+      display: grid;
+      gap: 4.1mm;
+    }
+
+    .page-one .page-shell {
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .page-two .page-shell {
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.55fr 0.77fr;
+      gap: 7mm;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 3mm;
+      margin-bottom: 2.4mm;
+      font-size: 8.8px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    }
+
+    .eyebrow-mark {
+      width: 8mm;
+      height: 8mm;
+      border-radius: 3px;
+      background: var(--accent-2);
+      box-shadow: 0 4px 12px rgba(249, 181, 114, 0.35);
+      flex: 0 0 auto;
+    }
+
+    .hero-title {
+      max-width: 128mm;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 26.5px;
+      line-height: 1.06;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      max-width: 132mm;
+      margin-top: 2.9mm;
+      padding-left: 4mm;
+      border-left: 3px solid var(--accent-2);
+      font-size: 11.6px;
+      line-height: 1.44;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    .hero-panel {
+      position: relative;
+      display: grid;
+      gap: 2.1mm;
+      padding: 4.5mm 4.4mm 4.2mm;
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2mm;
+      background: var(--accent-2);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3mm;
+      width: fit-content;
+      padding: 2.3mm 3.1mm;
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 1px 2px rgba(15, 44, 89, 0.06);
+    }
+
+    .hero-badge-mark {
+      width: 6.3mm;
+      height: 6.3mm;
+      border-radius: 2px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .hero-badge-text {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 9.4px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero-panel-label,
+    .section-kicker,
+    .page-number {
+      font-size: 8.4px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    }
+
+    .hero-panel-label,
+    .section-kicker {
+      color: var(--text);
+    }
+
+    .hero-panel-title {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 17.5px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+
+    .hero-panel-copy {
+      font-size: 8.7px;
+      line-height: 1.44;
+      color: var(--text);
+    }
+
+    .micro-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 1.4mm;
+    }
+
+    .micro-list li {
+      position: relative;
+      padding-left: 4mm;
+      font-size: 8.7px;
+      line-height: 1.38;
+      color: var(--text);
+    }
+
+    .micro-list li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 1.4mm;
+      height: 1.4mm;
+      border-radius: 999px;
+      background: var(--accent-2);
+      transform: translateY(-50%);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: 5mm;
+      min-height: 0;
+    }
+
+    .page-one .page-grid {
+      grid-template-columns: 1.62fr 0.72fr;
+    }
+
+    .page-two-top {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 4.2mm;
+    }
+
+    .stack {
+      display: grid;
+      grid-template-rows: 1.22fr 0.78fr;
+      gap: 5mm;
+      min-height: 0;
+    }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2mm;
+      background: var(--card-bar, var(--accent));
+    }
+
+    .accent-orange {
+      --card-bar: var(--accent-2);
+    }
+
+    .accent-gray {
+      --card-bar: var(--text);
+    }
+
+    .card-shell {
+      height: 100%;
+      padding: 4.7mm 4.8mm 4.3mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 4mm;
+      margin-bottom: 2.4mm;
+    }
+
+    .section-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 8mm;
+      min-width: 8mm;
+      height: 8mm;
+      padding: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 8.6px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      flex: 0 0 auto;
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(15, 44, 89, 0.16);
+    }
+
+    .section-title {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 12.6px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+
+    .section-copy {
+      display: grid;
+      gap: 1.9mm;
+      flex: 1 1 auto;
+    }
+
+    .section-copy p {
+      font-size: 9.5px;
+      line-height: 1.48;
+      color: var(--text);
+    }
+
+    .body-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 1.45mm;
+    }
+
+    .body-list li {
+      position: relative;
+      padding-left: 4.2mm;
+      font-size: 9.25px;
+      line-height: 1.36;
+      color: var(--text);
+    }
+
+    .body-list li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 1.5mm;
+      height: 1.5mm;
+      border-radius: 999px;
+      background: var(--accent-2);
+      transform: translateY(-50%);
+    }
+
+    .note-box {
+      margin-top: auto;
+      padding: 2.8mm 3.2mm;
+      border-radius: 0 12px 12px 0;
+      background: #ffffff;
+      border: 1px solid var(--line-soft);
+      border-left: 4px solid var(--accent-2);
+    }
+
+    .note-label {
+      display: block;
+      margin-bottom: 1.4mm;
+      font-size: 8.2px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    }
+
+    .note-box p {
+      font-size: 8.9px;
+      line-height: 1.42;
+      color: var(--text);
+    }
+
+    .execution-card .card-shell,
+    .impact-card .card-shell {
+      gap: 2.8mm;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.3mm;
+    }
+
+    .phase {
+      min-height: 26.8mm;
+      padding: 2.9mm 2.9mm 2.7mm;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 4px 10px rgba(15, 44, 89, 0.05);
+    }
+
+    .phase-title {
+      margin-bottom: 1.5mm;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 9.5px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .phase .body-list li {
+      font-size: 8.55px;
+    }
+
+    .deliverable-list,
+    .steps-list {
+      display: grid;
+      gap: 2mm;
+    }
+
+    .deliverable-item,
+    .step-item {
+      padding: 2.6mm 3.1mm 2.6mm 4mm;
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: #ffffff;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(15, 44, 89, 0.04);
+    }
+
+    .deliverable-item::before,
+    .step-item::before {
+      content: "";
+      position: absolute;
+      top: 2.6mm;
+      left: 0;
+      width: 1.9mm;
+      height: calc(100% - 5.2mm);
+      border-radius: 0 999px 999px 0;
+      background: var(--accent-2);
+    }
+
+    .deliverable-item h3,
+    .step-item h3 {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 9.8px;
+      line-height: 1.25;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.8mm;
+    }
+
+    .deliverable-item p,
+    .step-item p {
+      font-size: 8.9px;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.4mm;
+    }
+
+    .impact-item {
+      min-height: 22mm;
+      padding: 2.7mm 3mm 2.5mm 3.8mm;
+      border: 1px solid #edf1f5;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      position: relative;
+    }
+
+    .impact-item::before {
+      content: "";
+      position: absolute;
+      top: 2.6mm;
+      left: 0;
+      width: 1.8mm;
+      height: calc(100% - 5.2mm);
+      border-radius: 0 999px 999px 0;
+      background: var(--accent);
+    }
+
+    .impact-item.wide {
+      grid-column: 1 / -1;
+      min-height: 17.2mm;
+    }
+
+    .impact-item h3 {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 9.15px;
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.7mm;
+    }
+
+    .impact-item p {
+      font-size: 8.35px;
+      line-height: 1.32;
+      color: var(--text);
+    }
+
+    .investment-card .card-shell {
+      gap: 2.5mm;
+    }
+
+    .investment-highlight {
+      display: grid;
+      grid-template-columns: 22mm 1fr;
+      gap: 3mm;
+      align-items: center;
+      padding: 3mm 3.2mm;
+      border: 1px solid rgba(249, 181, 114, 0.8);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%);
+    }
+
+    .investment-value {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--accent);
+    }
+
+    .investment-highlight p {
+      font-size: 8.7px;
+      line-height: 1.36;
+      color: var(--text);
+    }
+
+    .investment-grid {
+      display: grid;
+      gap: 1.8mm;
+    }
+
+    .investment-stage {
+      display: grid;
+      grid-template-columns: 17mm 1fr;
+      gap: 3mm;
+      align-items: center;
+      padding: 2.3mm 2.8mm;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f9fafb;
+    }
+
+    .investment-share {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .investment-stage p {
+      font-size: 8.45px;
+      line-height: 1.32;
+      color: var(--text);
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 4.2mm;
+    }
+
+    .closing-card {
+      position: relative;
+      overflow: hidden;
+      padding: 4.2mm 4.4mm;
+      border-radius: 16px;
+      background: var(--accent);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: var(--shadow-card);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .closing-card::before {
+      content: "";
+      position: absolute;
+      right: -16mm;
+      bottom: -20mm;
+      width: 66mm;
+      height: 66mm;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .closing-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2.3mm;
+      background: var(--accent-2);
+    }
+
+    .closing-label {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.8mm;
+      font-size: 8.4px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.74);
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    }
+
+    .closing-card p {
+      position: relative;
+      z-index: 1;
+      font-size: 9.3px;
+      line-height: 1.34;
+      color: rgba(255, 255, 255, 0.90);
+    }
+
+    .closing-card p + p {
+      margin-top: 1.3mm;
+    }
+
+    .closing-quote {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 12.2px;
+      line-height: 1.24;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .page-number {
+      position: absolute;
+      right: var(--page-padding-x);
+      bottom: 6mm;
+      color: var(--accent);
+    }
+
+    @media screen and (max-width: 980px) {
+      body {
+        padding: 0;
+      }
+
+      .document {
+        width: 100%;
+        gap: 0;
+      }
+
+      .page {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .page-shell {
+        padding: 24px 20px 28px;
+      }
+
+      .hero,
+      .page-one .page-grid,
+      .page-two-top,
+      .bottom-grid,
+      .timeline-grid,
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stack {
+        grid-template-rows: none;
+      }
+
+      .impact-item.wide {
+        grid-column: auto;
+      }
+
+      .page-number {
+        position: static;
+        margin-top: 8px;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        display: block;
+        padding: 0;
+      }
+
+      .document {
+        gap: 0;
+      }
+
+      .page {
+        width: var(--page-width);
+        height: var(--page-safe-height);
+        min-height: var(--page-safe-height);
+        border: 0;
+        box-shadow: none;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="document" role="document" aria-label="Proposta executiva ADA">
+    <section class="page page-one" aria-label="Página 1">
+      <div class="page-shell">
+        <!-- Cabeçalho executivo -->
+        <header class="hero">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-mark" aria-hidden="true"></span>
+              <span>Proposta Executiva</span>
+            </div>
+            <h1 class="hero-title">ADA — Proposta de Construção do ERP com Arquitetura Orientada a IA</h1>
+            <p class="hero-subtitle">Abordagem para redução de custo, prazo e habilitação real de IA na operação.</p>
+          </div>
+
+          <aside class="hero-panel" aria-label="Resumo executivo ADA">
+            <div class="hero-badge" aria-label="Identificação UBC">
+              <span class="hero-badge-mark" aria-hidden="true"></span>
+              <span class="hero-badge-text">UBC</span>
+            </div>
+            <span class="hero-panel-label">Projeto ADA</span>
+            <div class="hero-panel-title">ADA</div>
+            <p class="hero-panel-copy">Construção de um ERP estruturado para que a operação e a inteligência artificial evoluam sobre a mesma base de negócio.</p>
+            <ul class="micro-list">
+              <li>Núcleo funcional com entrega progressiva</li>
+              <li>Base unificada para regras, processos e dados</li>
+              <li>Horizonte de execução inicial em 6 meses</li>
+            </ul>
+          </aside>
+        </header>
+
+        <div class="page-grid">
+          <div class="stack">
+            <article class="card accent-orange" aria-labelledby="contexto-title">
+              <div class="card-shell">
+                <div class="section-head">
+                  <div>
+                    <span class="section-kicker">Diagnóstico</span>
+                    <h2 class="section-title" id="contexto-title">1. Contexto</h2>
+                  </div>
+                  <span class="section-index">01</span>
+                </div>
+
+                <div class="section-copy">
+                  <p>A UBC está em um momento estratégico de definição do seu novo ERP (ADA), com impacto direto na operação e nos próximos anos da organização.</p>
+                  <p>O modelo tradicional de construção de sistemas apresenta limitações relevantes:</p>
+                  <ul class="body-list">
+                    <li>Alto tempo de desenvolvimento</li>
+                    <li>Elevado custo de implementação e manutenção</li>
+                    <li>Baixa flexibilidade para evolução</li>
+                    <li>Limitações no uso efetivo de IA</li>
+                  </ul>
+                  <div class="note-box">
+                    <span class="note-label">Risco central</span>
+                    <p>Entrega de um sistema desalinhado com o potencial atual de inteligência artificial e com menor capacidade de adaptação ao negócio.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="card" aria-labelledby="proposta-title">
+              <div class="card-shell">
+                <div class="section-head">
+                  <div>
+                    <span class="section-kicker">Arquitetura proposta</span>
+                    <h2 class="section-title" id="proposta-title">2. Proposta</h2>
+                  </div>
+                  <span class="section-index">02</span>
+                </div>
+
+                <div class="section-copy">
+                  <p>Proposta de construção do ADA utilizando uma plataforma baseada em:</p>
+                  <ul class="body-list">
+                    <li>Estrutura unificada de definição do sistema</li>
+                    <li>Modelagem orientada a dados, com JSON por tela</li>
+                    <li>Inteligência artificial integrada ao sistema</li>
+                  </ul>
+                  <p>Dessa forma, o sistema deixa de ser código distribuído e passa a ser uma representação estruturada do negócio, permitindo que a IA entenda, opere e evolua junto com a empresa.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <article class="card accent-gray" aria-labelledby="escopo-title">
+            <div class="card-shell">
+              <div class="section-head">
+                <div>
+                  <span class="section-kicker">Entrada recomendada</span>
+                  <h2 class="section-title" id="escopo-title">3. Escopo Inicial (Piloto)</h2>
+                </div>
+                <span class="section-index">03</span>
+              </div>
+
+              <div class="section-copy">
+                <p>A proposta inicia com a construção de um núcleo funcional do ADA, concentrado em um primeiro ciclo de entrega controlado.</p>
+                <ul class="body-list">
+                  <li>Estrutura base da plataforma</li>
+                  <li>Módulos críticos do negócio</li>
+                  <li>Integração inicial de dados</li>
+                  <li>IA operando sobre regras e processos</li>
+                </ul>
+                <div class="note-box">
+                  <span class="note-label">Objetivo</span>
+                  <p>Validar a abordagem com entrega funcional e geração de valor real, reduzindo o risco antes da expansão do ERP.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <article class="card execution-card accent-orange" aria-labelledby="execucao-title">
+          <div class="card-shell">
+            <div class="section-head">
+              <div>
+                <span class="section-kicker">Roadmap de implementação</span>
+                <h2 class="section-title" id="execucao-title">4. Plano de Execução (6 meses)</h2>
+              </div>
+              <span class="section-index">04</span>
+            </div>
+
+            <div class="timeline-grid">
+              <section class="phase" aria-label="Mês 1 a 2">
+                <h3 class="phase-title">Mês 1–2</h3>
+                <ul class="body-list">
+                  <li>Levantamento de regras e processos</li>
+                  <li>Modelagem inicial</li>
+                </ul>
+              </section>
+
+              <section class="phase" aria-label="Mês 3 a 4">
+                <h3 class="phase-title">Mês 3–4</h3>
+                <ul class="body-list">
+                  <li>Construção dos módulos críticos</li>
+                  <li>IA operando como suporte interno</li>
+                </ul>
+              </section>
+
+              <section class="phase" aria-label="Mês 5 a 6">
+                <h3 class="phase-title">Mês 5–6</h3>
+                <ul class="body-list">
+                  <li>Consolidação do sistema</li>
+                  <li>Automações e relatórios</li>
+                  <li>Go-live assistido</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <div class="page-number">Página 1 de 2</div>
+      </div>
+    </section>
+
+    <section class="page page-two" aria-label="Página 2">
+      <div class="page-shell">
+        <div class="page-two-top">
+          <article class="card" aria-labelledby="entregaveis-title">
+            <div class="card-shell">
+              <div class="section-head">
+                <div>
+                  <span class="section-kicker">Resultado esperado</span>
+                  <h2 class="section-title" id="entregaveis-title">5. Entregáveis</h2>
+                </div>
+                <span class="section-index">05</span>
+              </div>
+
+              <div class="deliverable-list">
+                <article class="deliverable-item">
+                  <h3>ERP funcional (núcleo)</h3>
+                  <p>Base operacional pronta para validar a nova arquitetura em ambiente real.</p>
+                </article>
+
+                <article class="deliverable-item">
+                  <h3>IA integrada operando</h3>
+                  <p>Capacidade inicial de apoio à operação a partir das regras e processos estruturados.</p>
+                </article>
+
+                <article class="deliverable-item">
+                  <h3>Automações iniciais</h3>
+                  <p>Primeiros fluxos automatizados com ganho de eficiência operacional.</p>
+                </article>
+
+                <article class="deliverable-item">
+                  <h3>Base preparada para expansão</h3>
+                  <p>Fundação técnica e lógica de negócio pronta para evolução contínua.</p>
+                </article>
+              </div>
+            </div>
+          </article>
+
+          <article class="card investment-card accent-orange" aria-labelledby="investimento-title">
+            <div class="card-shell">
+              <div class="section-head">
+                <div>
+                  <span class="section-kicker">Modelo econômico</span>
+                  <h2 class="section-title" id="investimento-title">7. Modelo de Investimento</h2>
+                </div>
+                <span class="section-index">07</span>
+              </div>
+
+              <div class="section-copy">
+                <p>O investimento é estruturado de forma progressiva, acompanhando a evolução do projeto e reduzindo risco ao longo da execução.</p>
+              </div>
+
+              <div class="investment-highlight" aria-label="Referência de custo">
+                <div class="investment-value">30%</div>
+                <p>Aproximadamente do custo estimado no modelo tradicional, preservando capacidade de expansão após a entrega inicial.</p>
+              </div>
+
+              <div class="investment-grid">
+                <div class="investment-stage">
+                  <div class="investment-share">10%</div>
+                  <p>Na formalização do projeto, com alinhamento de escopo, governança e estrutura de execução.</p>
+                </div>
+
+                <div class="investment-stage">
+                  <div class="investment-share">40%</div>
+                  <p>Ao longo dos 6 meses, por etapas, acompanhando a evolução dos marcos de construção.</p>
+                </div>
+
+                <div class="investment-stage">
+                  <div class="investment-share">50%</div>
+                  <p>Após a entrega inicial, com possibilidade de parcelamento em até 24 meses.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <article class="card impact-card accent-gray" aria-labelledby="impacto-title">
+          <div class="card-shell">
+            <div class="section-head">
+              <div>
+                <span class="section-kicker">Valor para a operação</span>
+                <h2 class="section-title" id="impacto-title">6. Impacto na Operação</h2>
+              </div>
+              <span class="section-index">06</span>
+            </div>
+
+            <div class="impact-grid">
+              <article class="impact-item">
+                <h3>Menor dependência de conhecimento tácito</h3>
+                <p>Regras e processos deixam de ficar concentrados em poucos especialistas, ampliando continuidade operacional.</p>
+              </article>
+
+              <article class="impact-item">
+                <h3>Mais autonomia para os times</h3>
+                <p>As áreas ganham capacidade de operar, consultar e responder à demanda com menor intermediação técnica.</p>
+              </article>
+
+              <article class="impact-item">
+                <h3>Relatórios sob demanda</h3>
+                <p>Redução do tempo entre a pergunta de negócio e a informação necessária para decisão executiva.</p>
+              </article>
+
+              <article class="impact-item">
+                <h3>Automação de processos críticos</h3>
+                <p>Menos esforço manual, maior consistência operacional e melhor foco das equipes em atividades de maior valor.</p>
+              </article>
+
+              <article class="impact-item wide">
+                <h3>Aceleração no desenvolvimento e evolução do sistema</h3>
+                <p>O ERP passa a evoluir com maior velocidade, menor custo incremental e melhor aderência às mudanças do negócio.</p>
+              </article>
+            </div>
+          </div>
+        </article>
+
+        <div class="bottom-grid">
+          <article class="card accent-orange" aria-labelledby="passos-title">
+            <div class="card-shell">
+              <div class="section-head">
+                <div>
+                  <span class="section-kicker">Alinhamento decisório</span>
+                  <h2 class="section-title" id="passos-title">8. Próximos Passos</h2>
+                </div>
+                <span class="section-index">08</span>
+              </div>
+
+              <div class="steps-list">
+                <article class="step-item">
+                  <h3>Validação do escopo inicial</h3>
+                  <p>Convergir o perímetro do piloto e os critérios de sucesso do primeiro ciclo.</p>
+                </article>
+
+                <article class="step-item">
+                  <h3>Definição do módulo piloto</h3>
+                  <p>Selecionar o recorte com maior relevância operacional e potencial de valor imediato.</p>
+                </article>
+
+                <article class="step-item">
+                  <h3>Estruturação formal</h3>
+                  <p>Consolidar cronograma, governança, investimento e responsabilidades do projeto.</p>
+                </article>
+
+                <article class="step-item">
+                  <h3>Início do projeto</h3>
+                  <p>Mobilizar time, modelagem e construção do núcleo funcional do ADA.</p>
+                </article>
+              </div>
+            </div>
+          </article>
+
+          <aside class="closing-card" aria-label="Mensagem final">
+            <span class="closing-label">Bloco final</span>
+            <p>Essa proposta não representa apenas uma alternativa tecnológica.</p>
+            <p>Representa uma mudança na forma de construir sistemas:</p>
+            <p class="closing-quote">Sistemas que a inteligência artificial consegue entender, operar e evoluir junto com o negócio.</p>
+          </aside>
+        </div>
+
+        <div class="page-number">Página 2 de 2</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

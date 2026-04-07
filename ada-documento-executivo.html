@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADA - Documento Executivo</title>
+  <style>
+    :root {
+      --page-width: 210mm;
+      --page-height: 297mm;
+      --page-safe-height: 296mm;
+      --page-padding-x: 13mm;
+      --page-padding-y: 12mm;
+      --corporate-blue: #0f2c59;
+      --corporate-orange: #f9b572;
+      --corporate-gray: #454545;
+      --corporate-light: #f8f9fa;
+      --blue-soft: #eef4fb;
+      --line: #e5e7eb;
+      --text: #233347;
+      --muted: #64748b;
+      --shadow-soft: 0 10px 24px rgba(15, 44, 89, 0.08);
+      --shadow-card: 0 18px 36px rgba(15, 44, 89, 0.08);
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--corporate-light);
+      color: var(--text);
+      font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .sheet {
+      position: relative;
+      width: var(--page-width);
+      min-height: var(--page-height);
+      padding: var(--page-padding-y) var(--page-padding-x);
+      background: #ffffff;
+      box-shadow: 0 22px 54px rgba(15, 44, 89, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 4.5mm;
+    }
+
+    .sheet::before,
+    .sheet::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sheet::before {
+      top: -28mm;
+      right: -20mm;
+      width: 66mm;
+      height: 66mm;
+      background: rgba(15, 44, 89, 0.05);
+    }
+
+    .sheet::after {
+      right: 12mm;
+      bottom: 28mm;
+      width: 38mm;
+      height: 38mm;
+      background: rgba(59, 130, 246, 0.07);
+    }
+
+    .layer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card,
+    .risk-card,
+    .phase,
+    .impact-item,
+    .comparison-table {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .card {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2.5mm;
+      background: linear-gradient(90deg, var(--corporate-orange) 0%, rgba(249, 181, 114, 0.16) 100%);
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 40mm;
+      gap: 8mm;
+      align-items: start;
+      padding-bottom: 1mm;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 3mm;
+      margin-bottom: 3.2mm;
+    }
+
+    .eyebrow-mark {
+      width: 8mm;
+      height: 8mm;
+      border-radius: 3px;
+      background: var(--corporate-orange);
+      box-shadow: 0 4px 10px rgba(249, 181, 114, 0.4);
+      flex: 0 0 auto;
+    }
+
+    .eyebrow-text,
+    .section-label,
+    .cta-label {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--corporate-gray);
+    }
+
+    h1 {
+      max-width: 132mm;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 27px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--corporate-blue);
+    }
+
+    .summary {
+      margin-top: 3.6mm;
+      padding-left: 4mm;
+      border-left: 3px solid var(--corporate-orange);
+      max-width: 134mm;
+    }
+
+    .summary p {
+      font-size: 12.4px;
+      line-height: 1.5;
+      color: var(--corporate-gray);
+      font-weight: 300;
+    }
+
+    .summary strong {
+      font-weight: 700;
+      color: var(--corporate-blue);
+    }
+
+    .brand-card {
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 5mm 4.5mm;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brand-wordmark {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--corporate-blue);
+      line-height: 1;
+    }
+
+    .brand-copy {
+      font-size: 9px;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .section-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 6mm;
+      margin-bottom: 3mm;
+    }
+
+    .section-top h2,
+    .risk-card h2 {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--corporate-blue);
+    }
+
+    .section-note {
+      max-width: 82mm;
+      font-size: 9.2px;
+      line-height: 1.45;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .comparison {
+      padding: 6mm 5.5mm 4.5mm;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+    }
+
+    .comparison-table {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 33mm 1fr 1fr;
+    }
+
+    .cell {
+      min-height: 10.6mm;
+      padding: 2.8mm 3.5mm;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    .comparison-grid .cell:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .comparison-grid .cell:nth-last-child(-n + 3) {
+      border-bottom: 0;
+    }
+
+    .header-blank,
+    .metric {
+      justify-content: flex-start;
+      text-align: left;
+      background: var(--corporate-light);
+    }
+
+    .header-cell,
+    .metric {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 8.6px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--corporate-gray);
+    }
+
+    .header-cell {
+      background: var(--corporate-light);
+    }
+
+    .header-cell.new,
+    .value-new {
+      background: linear-gradient(180deg, #f4f8fc 0%, var(--blue-soft) 100%);
+    }
+
+    .value,
+    .value-new {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--corporate-blue);
+      letter-spacing: -0.01em;
+    }
+
+    .value {
+      color: var(--corporate-gray);
+      background: #ffffff;
+    }
+
+    .comparison-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5mm;
+      margin-top: 3mm;
+    }
+
+    .comparison-foot p {
+      font-size: 9px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .comparison-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.3mm 3.2mm;
+      background: var(--blue-soft);
+      border: 1px solid rgba(15, 44, 89, 0.1);
+      border-radius: 999px;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 8.2px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--corporate-blue);
+      white-space: nowrap;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.42fr 0.86fr;
+      gap: 4mm;
+      align-items: stretch;
+    }
+
+    .impact {
+      padding: 5.8mm 5.2mm 4.8mm;
+      background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+    }
+
+    .impact-item {
+      background: var(--corporate-light);
+      border: 1px solid #eef1f4;
+      border-radius: 12px;
+      padding: 3.3mm 3.4mm 3.2mm 4.2mm;
+      position: relative;
+      min-height: 24mm;
+    }
+
+    .impact-item::before {
+      content: "";
+      position: absolute;
+      top: 3.2mm;
+      left: 0;
+      width: 2mm;
+      height: calc(100% - 6.4mm);
+      border-radius: 0 999px 999px 0;
+      background: var(--corporate-orange);
+    }
+
+    .impact-item.wide {
+      grid-column: 1 / -1;
+      min-height: 20mm;
+    }
+
+    .impact-item h3 {
+      margin-bottom: 1.2mm;
+      padding-left: 2mm;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 10px;
+      line-height: 1.3;
+      font-weight: 700;
+      color: var(--corporate-blue);
+    }
+
+    .impact-item p {
+      padding-left: 2mm;
+      font-size: 8.8px;
+      line-height: 1.45;
+      color: var(--corporate-gray);
+    }
+
+    .risk-card {
+      position: relative;
+      padding: 6mm 5.2mm 5mm;
+      background: var(--corporate-blue);
+      color: #ffffff;
+      border-radius: 14px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .risk-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2.5mm;
+      background: var(--corporate-orange);
+    }
+
+    .risk-card::after {
+      content: "";
+      position: absolute;
+      right: -12mm;
+      bottom: -12mm;
+      width: 52mm;
+      height: 52mm;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .risk-card .section-label {
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 3mm;
+      display: inline-block;
+    }
+
+    .risk-card h2 {
+      color: #ffffff;
+      margin-bottom: 3mm;
+      max-width: 44mm;
+    }
+
+    .risk-card p {
+      position: relative;
+      z-index: 1;
+      font-size: 9.4px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .risk-highlight {
+      position: relative;
+      z-index: 1;
+      margin-top: 4.5mm;
+      padding-top: 3.5mm;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      display: grid;
+      gap: 1.5mm;
+    }
+
+    .risk-highlight strong {
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .risk-highlight span {
+      font-size: 8.6px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .timeline {
+      padding: 5.6mm 5.2mm 4.8mm;
+      background: linear-gradient(180deg, #fbfcfd 0%, var(--corporate-light) 100%);
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3mm;
+    }
+
+    .phase {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+      padding: 3.5mm 3.4mm 3.2mm;
+      min-height: 29mm;
+    }
+
+    .phase-title {
+      margin-bottom: 2mm;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--corporate-blue);
+    }
+
+    .phase ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 1.6mm;
+    }
+
+    .phase li {
+      position: relative;
+      padding-left: 3mm;
+      font-size: 8.8px;
+      line-height: 1.4;
+      color: var(--corporate-gray);
+    }
+
+    .phase li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 1.4mm;
+      height: 1.4mm;
+      border-radius: 999px;
+      background: var(--corporate-orange);
+      transform: translateY(-50%);
+    }
+
+    .cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6mm;
+      padding-top: 3.5mm;
+      border-top: 1px solid var(--line);
+    }
+
+    .cta p {
+      max-width: 106mm;
+      font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+      font-size: 10.5px;
+      line-height: 1.4;
+      font-weight: 700;
+      color: var(--corporate-blue);
+      text-align: right;
+    }
+
+    @media screen and (max-width: 980px) {
+      body {
+        padding: 0;
+      }
+
+      .sheet {
+        width: 100%;
+        min-height: 100vh;
+        padding: 24px 20px 28px;
+        box-shadow: none;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      html,
+      body {
+        background: #ffffff;
+      }
+
+      body {
+        display: block;
+        width: var(--page-width);
+        height: var(--page-safe-height);
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .sheet {
+        width: var(--page-width);
+        height: var(--page-safe-height);
+        min-height: var(--page-safe-height);
+        box-shadow: none;
+        margin: 0 auto;
+        gap: 4mm;
+      }
+
+      .layer {
+        flex-shrink: 0;
+      }
+
+      .cell {
+        min-height: 9.7mm;
+        padding: 2.15mm 3.2mm;
+        line-height: 1.08;
+      }
+
+      .header-cell,
+      .metric {
+        font-size: 8.1px;
+        line-height: 1.05;
+      }
+
+      .value,
+      .value-new {
+        font-size: 11.4px;
+        line-height: 1.05;
+      }
+
+      .comparison {
+        padding: 5.4mm 5.1mm 3.3mm;
+      }
+
+      .comparison .section-top {
+        margin-bottom: 2.2mm;
+      }
+
+      .comparison .section-note {
+        font-size: 8.4px;
+        line-height: 1.25;
+      }
+
+      .comparison-foot {
+        gap: 3.2mm;
+        margin-top: 1.8mm;
+      }
+
+      .comparison-foot p {
+        font-size: 8px;
+        line-height: 1.2;
+      }
+
+      .comparison-badge {
+        padding: 1.8mm 2.5mm;
+        font-size: 7.3px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet" role="document" aria-label="Documento executivo ADA">
+    <!-- Header -->
+    <header class="header layer">
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-mark" aria-hidden="true"></span>
+          <span class="eyebrow-text">Documento Executivo</span>
+        </div>
+        <h1>ADA - Nova abordagem para construção do ERP</h1>
+        <div class="summary">
+          <p>Redução de custo, prazo e <strong>desbloqueio real de IA operacional</strong>.</p>
+        </div>
+      </div>
+
+      <aside class="brand-card" aria-label="Identificação ADA">
+        <div class="brand-wordmark">ADA</div>
+        <p class="brand-copy">Arquitetura orientada a execução, velocidade e IA operacional.</p>
+      </aside>
+    </header>
+
+    <!-- Comparativo central -->
+    <section class="comparison card layer" aria-labelledby="comparativo-title">
+      <div class="section-top">
+        <h2 id="comparativo-title">Comparativo executivo</h2>
+        <p class="section-note">Mesmo objetivo estratégico, com uma lógica de construção mais curta, menos dependente e muito mais aderente ao uso prático de IA.</p>
+      </div>
+
+      <div class="comparison-table">
+        <div class="comparison-grid" role="table" aria-label="Comparativo entre modelo tradicional e nova abordagem">
+          <div class="cell header-blank" aria-hidden="true"></div>
+          <div class="cell header-cell" role="columnheader">Modelo Tradicional</div>
+          <div class="cell header-cell new" role="columnheader">Nova Abordagem</div>
+
+          <div class="cell metric" role="rowheader">Tempo</div>
+          <div class="cell value" role="cell">~5 anos</div>
+          <div class="cell value-new" role="cell">~6 meses</div>
+
+          <div class="cell metric" role="rowheader">Custo</div>
+          <div class="cell value" role="cell">~R$ 5 milhões</div>
+          <div class="cell value-new" role="cell">~30%</div>
+
+          <div class="cell metric" role="rowheader">Evolução</div>
+          <div class="cell value" role="cell">Lenta</div>
+          <div class="cell value-new" role="cell">Rápida</div>
+
+          <div class="cell metric" role="rowheader">IA</div>
+          <div class="cell value" role="cell">Limitada</div>
+          <div class="cell value-new" role="cell">Nativa</div>
+
+          <div class="cell metric" role="rowheader">Dependência técnica</div>
+          <div class="cell value" role="cell">Alta</div>
+          <div class="cell value-new" role="cell">Baixa</div>
+        </div>
+      </div>
+
+      <div class="comparison-foot">
+        <p>A diferença central não é apenas de tecnologia, mas de modelo operacional: menor ciclo de entrega, mais controle de evolução e melhor capacidade de capturar valor desde o início.</p>
+        <span class="comparison-badge">Menor risco estrutural</span>
+      </div>
+    </section>
+
+    <!-- Impacto e risco -->
+    <section class="main-grid layer">
+      <div class="impact card" aria-labelledby="impacto-title">
+        <div class="section-top">
+          <h2 id="impacto-title">Impacto direto na operação</h2>
+          <span class="section-label">Valor de negócio</span>
+        </div>
+
+        <div class="impact-grid">
+          <article class="impact-item">
+            <h3>IA especialista 24/7 para a operação</h3>
+            <p>Reduz dependência de conhecimento interno e aumenta autonomia dos times.</p>
+          </article>
+
+          <article class="impact-item">
+            <h3>Relatórios sob demanda em tempo real</h3>
+            <p>Elimina tempo entre pergunta e resposta, acelerando decisões.</p>
+          </article>
+
+          <article class="impact-item">
+            <h3>Automação inteligente de grandes volumes</h3>
+            <p>Aumenta eficiência operacional e potencial de recuperação financeira.</p>
+          </article>
+
+          <article class="impact-item">
+            <h3>Hub integrado de operações com N8N</h3>
+            <p>Conecta sistemas internos e externos sem fricção.</p>
+          </article>
+
+          <article class="impact-item wide">
+            <h3>Desenvolvimento até 10x mais rápido</h3>
+            <p>Reduz backlog e permite evolução contínua do sistema com mais previsibilidade.</p>
+          </article>
+        </div>
+      </div>
+
+      <aside class="risk-card layer" aria-labelledby="risco-title">
+        <span class="section-label">Decisão executiva</span>
+        <div>
+          <h2 id="risco-title">Risco da decisão tradicional</h2>
+          <p>Investir anos e milhões em um sistema que já nasce desalinhado com o uso real de IA, criando nova dependência técnica e limitando ganhos operacionais futuros.</p>
+        </div>
+
+        <div class="risk-highlight">
+          <strong>~5 anos</strong>
+          <span>para chegar a um ponto que pode nascer defasado</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Plano de execução -->
+    <section class="timeline card layer" aria-labelledby="execucao-title">
+      <div class="section-top">
+        <h2 id="execucao-title">Plano de execução | 6 meses</h2>
+        <p class="section-note">Entrega progressiva com valor já nos primeiros ciclos, reduzindo risco de implantação concentrada no fim do projeto.</p>
+      </div>
+
+      <div class="timeline-grid">
+        <article class="phase">
+          <div class="phase-title">Mês 1-2</div>
+          <ul>
+            <li>Levantamento estruturado de regras e processos</li>
+            <li>Modelagem dos módulos principais</li>
+          </ul>
+        </article>
+
+        <article class="phase">
+          <div class="phase-title">Mês 3-4</div>
+          <ul>
+            <li>Construção dos módulos críticos</li>
+            <li>IA operando como suporte interno</li>
+          </ul>
+        </article>
+
+        <article class="phase">
+          <div class="phase-title">Mês 5-6</div>
+          <ul>
+            <li>ERP funcional consolidado</li>
+            <li>Automações e relatórios inteligentes</li>
+            <li>Go-live assistido</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Call to action -->
+    <footer class="cta layer">
+      <span class="cta-label">Próximo passo</span>
+      <p>Validação do escopo inicial e definição do primeiro módulo piloto.</p>
+    </footer>
+  </main>
+</body>
+</html>
