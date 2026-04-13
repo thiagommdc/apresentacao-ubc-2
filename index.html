@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -163,6 +163,10 @@
       font-weight: 700;
       box-shadow: 0 8px 20px rgba(15, 44, 89, 0.16);
       backdrop-filter: blur(10px);
+    }
+
+    .slide-audio-btn[hidden] {
+      display: none !important;
     }
 
     .slide-audio-btn:hover {
@@ -430,6 +434,8 @@
     const narrationBtn = document.getElementById("narrationBtn");
     const syncBtn = document.getElementById("syncBtn");
     const statusEl = document.getElementById("status");
+    const searchParams = new URLSearchParams(window.location.search);
+    const audioModeEnabled = searchParams.get("audio") === "sim";
     const AUDIO_DEBUG_PREFIX = "[presentation-audio]";
     const fallbackAudioPlayer = new Audio();
     fallbackAudioPlayer.preload = "auto";
@@ -467,6 +473,17 @@
 
     function clampSlideIndex(index) {
       return Math.max(0, Math.min(index, SLIDES.length - 1));
+    }
+
+    function updateNarrationButtonLabel() {
+      if (audioModeEnabled) {
+        narrationBtn.textContent = narrationEnabled ? "Parar narra\u00E7\u00E3o" : "Reproduzir slides";
+        return;
+      }
+
+      narrationBtn.textContent = presentationMode
+        ? "Encerrar apresenta\u00E7\u00E3o"
+        : "Iniciar apresenta\u00E7\u00E3o";
     }
 
     function getViewportSlideIndex(cards = getSlideCards()) {
@@ -567,6 +584,7 @@
         slideAudioBtn.type = "button";
         slideAudioBtn.textContent = "Tocar áudio";
         slideAudioBtn.disabled = !audioSrc;
+        slideAudioBtn.hidden = !audioModeEnabled;
         slideAudioBtn.addEventListener("click", (event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -661,7 +679,7 @@
 
     function setNarration(enabled) {
       narrationEnabled = enabled;
-      narrationBtn.textContent = enabled ? "Parar narração" : "Reproduzir slides";
+      updateNarrationButtonLabel();
       logAudioDebug("estado da narração alterado", {
         enabled,
         presentationMode,
@@ -773,6 +791,7 @@
       presentationMode = enabled;
       document.body.classList.toggle("presentation-mode", enabled);
       logAudioDebug("modo de apresentação alterado", { enabled });
+      updateNarrationButtonLabel();
       updateViewerScale();
       updateCurrentSlide();
     }
@@ -785,6 +804,7 @@
 
       presentationMode = enabled;
       document.body.classList.toggle("presentation-mode", enabled);
+      updateNarrationButtonLabel();
       updateCurrentSlide();
       updateViewerScale();
 
@@ -820,6 +840,22 @@
     }, 120);
 
     narrationBtn.addEventListener("click", async () => {
+      if (!audioModeEnabled) {
+        const nextState = !presentationMode;
+        logAudioDebug("clique no botão de apresentação sem áudio", { nextState });
+
+        if (nextState) {
+          setPresentationMode(true);
+          await enterFullscreen();
+        } else {
+          setPresentationMode(false);
+          await exitFullscreen();
+        }
+
+        setNarration(false);
+        return;
+      }
+
       const nextState = !narrationEnabled;
       logAudioDebug("clique no botão de narração", { nextState });
 
@@ -914,7 +950,10 @@
       }
     });
 
+    syncBtn.hidden = !audioModeEnabled;
+    updateNarrationButtonLabel();
     buildSlides();
   </script>
 </body>
 </html>
+
