@@ -351,7 +351,7 @@
       </div>
 
       <div class="toolbar">
-        <div class="status" id="status">Slide 1 de 27</div>
+        <div class="status" id="status">Slide 1 de 26</div>
         <button class="secondary-btn" id="syncBtn" type="button">Sincronizar áudio</button>
         <button class="primary-btn" id="narrationBtn" type="button">Reproduzir slides</button>
       </div>
@@ -370,6 +370,7 @@
       "GCeNZoBG.html",
       "9vp2cL12.html",
       "Dqi2vZVD.html",
+      "V0aQkN7m.html",
       "OCj5UELa.html",
       "nZp1g0De.html",
       "EKsVgDy2.html",
@@ -448,7 +449,16 @@
     }
 
     function getSlideAudioSrc(slideNumber) {
-      return SLIDE_AUDIO_BY_NUMBER[slideNumber] || null;
+      const insertedSlideWithoutAudio = 7;
+      if (slideNumber === insertedSlideWithoutAudio) {
+        return null;
+      }
+
+      const audioNumber = slideNumber > insertedSlideWithoutAudio
+        ? slideNumber - 1
+        : slideNumber;
+
+      return SLIDE_AUDIO_BY_NUMBER[audioNumber] || null;
     }
 
     function getSlideCards() {
