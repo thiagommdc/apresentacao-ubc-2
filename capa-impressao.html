@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capa Executiva — Impressão A4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="./Genspark_files/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --blue:   #0F2C59;
+      --orange: #F9B572;
+      --gray:   #454545;
+      --light:  #F8F9FA;
+      --sidebar-width: 62mm;
+      --accent-bar: 8px;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+      background: #fff;
+      font-family: 'Open Sans', Arial, sans-serif;
+      color: var(--gray);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Overall layout ── */
+    .sheet {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      display: flex;
+      flex-direction: row;
+      background: var(--light);
+      overflow: hidden;
+    }
+
+    /* ── Right blue sidebar ── */
+    .sidebar {
+      position: relative;
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      background: var(--blue);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20mm 10mm;
+      overflow: hidden;
+    }
+
+    .sidebar-icon {
+      position: absolute;
+      bottom: -10mm;
+      right: -8mm;
+      font-size: 80mm;
+      color: rgba(255, 255, 255, 0.05);
+      transform: rotate(-12deg);
+      line-height: 1;
+    }
+
+    .sidebar-meta {
+      position: relative;
+      z-index: 2;
+      text-align: right;
+    }
+
+    .sidebar-meta p {
+      color: rgba(255, 255, 255, 0.45);
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      line-height: 1.9;
+    }
+
+    /* ── Orange accent bar (between sidebar and content) ── */
+    .accent-bar {
+      width: var(--accent-bar);
+      flex-shrink: 0;
+      background: var(--orange);
+      box-shadow: 2px 0 14px rgba(249, 181, 114, 0.35);
+    }
+
+    /* ── Left content area ── */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18mm 14mm 14mm 16mm;
+      position: relative;
+      background: #fff;
+    }
+
+    /* logo */
+    .logo {
+      position: absolute;
+      top: 14mm;
+      left: 16mm;
+    }
+
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 18pt;
+      color: var(--blue);
+      letter-spacing: 0.18em;
+    }
+
+    /* eyebrow */
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 7pt;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      margin-bottom: 5mm;
+    }
+
+    /* headline */
+    .headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 28pt;
+      line-height: 1.12;
+      color: var(--blue);
+      margin-bottom: 6mm;
+    }
+
+    /* sub-headline */
+    .subheadline {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-weight: 300;
+      font-size: 13pt;
+      line-height: 1.4;
+      color: var(--gray);
+      margin-bottom: 10mm;
+    }
+
+    .subheadline strong {
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    /* context box */
+    .context-box {
+      border-left: 4px solid var(--orange);
+      padding: 5mm 6mm;
+      background: rgba(249, 250, 251, 0.9);
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 0;
+    }
+
+    .context-box p {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.65;
+      color: var(--gray);
+    }
+
+    /* footer */
+    .footer {
+      position: absolute;
+      bottom: 12mm;
+      left: 16mm;
+      right: 6mm;
+      display: flex;
+      align-items: center;
+      gap: 6mm;
+      padding-top: 5mm;
+      border-top: 1.5px solid #e5e7eb;
+    }
+
+    .footer-avatar {
+      width: 9mm;
+      height: 9mm;
+      border-radius: 50%;
+      background: #EFF6FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .footer-avatar i {
+      font-size: 11pt;
+      color: var(--blue);
+    }
+
+    .footer-name {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 8.5pt;
+      color: var(--gray);
+    }
+
+    /* ── Print media query ── */
+    @media print {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+      }
+
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+
+    <!-- Left Content Area -->
+    <div class="content">
+
+      <!-- Logo -->
+      <div class="logo">
+        <span class="logo-text">UBC</span>
+      </div>
+
+      <!-- Titles -->
+      <div>
+        <p class="eyebrow">Proposta de Evolução Tecnológica</p>
+
+        <h1 class="headline">
+          Arquitetura de IA&nbsp;Nativa<br>para a UBC
+        </h1>
+
+        <p class="subheadline">
+          Do ERP estático ao <strong>Sistema Vivo</strong><br>
+          orientado por Inteligência Artificial
+        </p>
+
+        <!-- Context Box -->
+        <div class="context-box">
+          <p>
+            Uma nova visão estratégica para a gestão de direitos autorais,
+            escalando a arrecadação e distribuição com governança de dados
+            e automação.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-avatar">
+          <i class="fas fa-user-tie"></i>
+        </div>
+        <span class="footer-name">Thiago Monteiro</span>
+      </div>
+    </div>
+
+    <!-- Orange Accent Bar -->
+    <div class="accent-bar"></div>
+
+    <!-- Right Blue Sidebar -->
+    <div class="sidebar">
+      <i class="fas fa-brain sidebar-icon"></i>
+      <div class="sidebar-meta">
+        <p>Documento Executivo</p>
+        <p>UBC</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
