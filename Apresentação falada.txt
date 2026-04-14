@@ -40,83 +40,93 @@ Então a gente pode criar fluxos no N8N e disponibilizar esses fluxos de integra
 Isso cria uma camada única de automação e inteligência que atravessa toda a operação — do interno ao externo — permitindo processos muito mais integrados, escaláveis e inteligentes, com muito menos esforço técnico.
 O ERP deixa de ser um sistema fechado e vira um hub inteligente de operações.
 
-SLIDE (não existe) - Desenvolvimento muito mais rápido (slide não corresponde ao conteúdo) 
+SLIDE 7 - Desenvolvimento muito mais rápido
 A plataforma que criei tem várias ferramentas que aceleram drasticamente o tempo de desenvolvimento.
 
 Sabe aquela ideia que demora semanas ou até meses pra ter uma tela simples de testes? Esse problema vai ser resolvido. Com essa solução conseguimos criar uma esteira de desenvolvimento muito mais eficiente.
 
 O time de desenvolvimento deixa de ser um gargalo e começa a entregar valor muito mais rápido. Então o que antes levaríamos meses pra desenvolver poderá ser entregue em semanas, o que levaria semanas será entregue em dias e o que levaria dias vai ser entregue em minutos. 
-SLIDE 7 - IA especialista no negócio 
+SLIDE 8 - IA especialista no negócio 
 Na prática, isso é como ter um especialista interno, disponível o tempo todo, acelerando operação, desenvolvimento e decisão.
 Agora vem a pergunta: Se isso é o que toda empresa quer. E existe um investimento tão massivo em IA. Por que isso ainda não é realidade na maioria das empresas?
-Slide 8 — A limitação atual
+
+Slide 9 — A limitação atual
 E o motivo é simples. O obstáculo é o próprio sistema da empresa.
 Sistemas tradicionais são construídos com arquitetura distribuída e regras distribuídas pelas várias camadas da aplicação. Tem regras no front, back do front, no back, no banco e nos micro serviços independentes. 
-Slide 9 — O impacto disso
+Slide 10 — O impacto disso
 Isso significa que o conhecimento do negócio não está em um lugar só.
 Ele está espalhado em centenas de milhares de linhas de código. Muitas vezes implícito, difícil de rastrear, e dependente de contexto.
 Mesmo para um desenvolvedor experiente, entender o sistema inteiro já é um desafio grande.
 Agora imagina para uma IA, que precisa consumir isso como contexto.
-Slide 10 — O efeito na IA
+Slide 11 — O efeito na IA
 E é aqui que a IA começa a falhar.
 Porque ela depende de contexto claro, estruturado e consistente.
 Quando esse contexto está fragmentado:
 Ela não consegue entender completamente as regras e gera respostas inconsistentes. 
 E o resultado é uma IA que parece inteligente… mas não é confiável o suficiente para operações críticas.
-Slide 11 — Sistemas modernos
+Slide 12 — Sistemas modernos
 Mas e os sistemas modernos? Mesmo estes que são bem projetados, com boas práticas, microserviços…
 Eles não foram feitos para serem compreendidos por IA.
 Eles foram feitos para escalar tecnologia — não para expor claramente a lógica do negócio.
 Então, enquanto a arquitetura continuar assim, a IA sempre vai operar com limitação.
 E é exatamente isso que precisa mudar se a gente quiser usar tudo que a IA tem a nos oferecer.
-Slide 12 — A mudança de paradigma
+Slide de imagem:
+
+“Essa imagem resume exatamente o problema.”
+“Aqui… é a IA tentando entender um sistema tradicional.”
+“Fragmentado… fechado… impossível de entender de verdade.”
+“Quando a gente muda o modelo…”
+“A IA deixa de tentar adivinhar…”
+“…e passa a operar o sistema com clareza.”
+
+Slide 13 — A mudança de paradigma
 Ao invés de tentar adaptar a IA a um sistema que não foi feito para ela… 
 nós mudamos o próprio modelo de construção do sistema.
 Toda a definição da aplicação — interface, regras de front, back do front, back-end e automações — passa a existir em uma estrutura única e padronizada.
 Tudo é descrito em JSON. *Se tem uma coisa que a IA entende bem é JSON.
 Isso elimina a fragmentação e transforma o sistema em algo estruturado, consistente e legível — não só para humanos, mas principalmente para IA.
-Slide 13 — O que isso muda
+Slide 14 — O que isso muda
 O impacto disso é profundo.
 As regras deixam de estar escondidas em código e passam a ser explícitas.
 O sistema deixa de ser um conjunto de implementações técnicas e passa a ser uma representação clara do negócio.
 E, mais importante: a IA consegue entender o sistema de forma completa, sem precisar inferir ou ‘adivinhar’ comportamento.
 Isso muda completamente o nível de precisão e confiabilidade que conseguimos ter com relação a IA.
-Slide 14 — A analogia
+Slide 15 — A analogia
 Uma forma simples de entender isso é com uma analogia:
 No modelo tradicional, é como se a IA tivesse que ler, a cada interação, um livro inteiro, com milhares de páginas, para tentar entender como a empresa funciona.
 Na nossa abordagem, ela lê um resumo estruturado, direto ao ponto, com todas as regras organizadas.
 E isso faz toda a diferença.
 Porque quando você sobrecarrega a IA com muito contexto desorganizado, ela se perde — e começa a errar e alucinar.
 Quando o contexto é claro e estruturado, ela performa no máximo potencial.
-Slide 15 — IA especialista
+Slide 16 — IA especialista
 Com isso, damos um passo além.
 Não estamos falando de uma IA genérica.
 Estamos falando de agentes que se tornam especialistas no sistema da empresa.
 Eles entendem profundamente o sistema, os fluxos, as regras e as exceções.
 É como ter um especialista interno, disponível 24 horas, com conhecimento sempre atualizado.
-Slide 16 — Impacto no negócio
+Slide 17 — Impacto no negócio
 E aqui começa a aparecer o impacto real.
 A automação deixa de ser superficial e passa a ser profunda.
 Processos que antes exigiam intervenção humana passam a ser executados com confiabilidade.
 Erros operacionais diminuem.
 A empresa ganha velocidade para adaptar regras e processos.
 E a eficiência operacional, usando IA, deixa de ser uma promessa — e passa a ser realidade.
-Slide 17 — Vantagem competitiva
+Slide 19 — Vantagem competitiva
 À medida que as empresas vão adotando essa mudança de paradigma. Isso vai criar uma divisão muito clara no mercado.
 Empresas que continuam com arquiteturas tradicionais vão ter dificuldade cada vez maior de extrair valor da IA.
 E empresas que adotam uma arquitetura pensada para IA ganham uma vantagem competitiva real.
 Porque não é só sobre usar IA — é sobre permitir que a IA funcione de verdade.
-Slide 18 — Conclusão
+Slide 20 — Conclusão
 Isso não é apenas tecnologia. É uma nova forma de construir sistemas:
 Sistemas que a IA consegue entender.
-SLIDE 19 — A plataforma na prática 
+SLIDE 21 — A plataforma na prática 
 É exatamente isso que a plataforma que eu criei resolve.
 Ela tem um motor de renderização, que serve para criar dinamicamente o sistema inteiro através de arquivos de configuração, que é um JSON.
 A plataforma funciona como um motor único, onde tudo é definido em uma estrutura padronizada.
 
 
 
-SLIDE 20 — Como o sistema é construído
+SLIDE 22 — Como o sistema é construído
 Cada tela da aplicação deixa de ser só interface e vira uma unidade completa de negócio.
 Dentro do JSON que define cada tela, teremos todas as informações:
 - Como ela se aparece,		
@@ -125,34 +135,38 @@ Dentro do JSON que define cada tela, teremos todas as informações:
 - O que acontece por trás.
 Ou seja: a tela não depende de outro sistema para funcionar.
 Ela já carrega tudo com ela.
-SLIDE 21 — Motor de regras e automação
+SLIDE 23 — Motor de regras e automação
 No modelo tradicional, a regra de negócio está escondida.
 Aqui, ela é explícita.
 E quando a lógica está estruturada assim… a IA não precisa adivinhar.
 Ela entende.
 
-SLIDE 23 — O diferencial real
+SLIDE 24 — O diferencial real
 Isso muda completamente o nível de automação e integração que a gente consegue atingir.
 Não é mais uma ferramenta. É uma mudança de paradigma.
 •	A diferença é simples:
 o	No modelo tradicional a gente adapta a IA ao sistema.
 o	Na minha abordagem o sistema já nasce pronto para IA.
 
-SLIDE 24 – Com isso nós temos o impacto máximo na operação
-E o resultado disso é que se torna possível termos tudo aquilo que falamos no início:
-- IA confiável e especialista disponível 24/7 para todos os colaboradores, os ajudando em duas atividades do dia a dia; 
-- Geração automática de relatórios pela IA;
-- Automação inteligente grandes volumes de dados (como o retido);
-- Hub inteligente de operações e orquestração com o N8N;
-- Um time de desenvolvimento entregando valor 10x mais rápido;
+SLIDE 25 — Com isso nós temos o impacto máximo na operação
 
+E quando a gente muda o modelo…
+“Tudo aquilo que parecia complexo… passa a ser simples.”
+“E aquilo que era limitado… passa a escalar.”
+“A IA deixa de ser assistente… e passa a operar o sistema.”
+“Relatórios deixam de ser pedidos… e passam a ser respostas imediatas.”
+“Processos deixam de depender de pessoas… e passam a rodar com inteligência.”
+“Integrações deixam de ser projetos… e passam a ser fluxo.”
+“E o desenvolvimento…”
+“…deixa de ser gargalo.”
 
+...
+...
 
+“Isso não é ganho incremental...”
+“Isso é mudança de patamar.”
 
-
-
-
-SLIDE 25 — Comparativo direto
+SLIDE 26 — Comparativo direto
 Aqui a gente chega no ponto mais importante da apresentação.
 “Existem duas formas de construir o ADA.”
 
@@ -176,9 +190,11 @@ E principalmente:
 preparada para IA desde o início.”
 “O ADA vai deixar de ser um projeto.
 E vai passar a ser uma plataforma viva.”
+“No fim, a escolha aqui não é técnica.”
+“É estratégica.”
 
 
-💣 SLIDE 26 — O risco real
+💣 SLIDE 27 — O risco real
 
 O maior risco aqui não é custo.
 Não é prazo.

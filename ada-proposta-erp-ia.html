@@ -117,11 +117,45 @@
     }
 
     .page-one .page-shell {
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: 1fr auto;
     }
 
     .page-two .page-shell {
       grid-template-rows: auto 1fr auto;
+    }
+
+    .page-one-layout {
+      display: grid;
+      grid-template-columns: 1.55fr 0.77fr;
+      gap: 5mm;
+      height: 100%;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    .page-column {
+      display: grid;
+      gap: 4.2mm;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .page-one-main {
+      grid-template-rows: auto minmax(0, 1.08fr) minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+
+    .page-one-side {
+      grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .hero-copy {
+      display: grid;
+      align-content: start;
+    }
+
+    .page-one .page-column > .card,
+    .page-one .page-column > .hero-panel {
+      height: 100%;
     }
 
     .hero {
@@ -447,6 +481,10 @@
       color: var(--text);
     }
 
+    .note-box p + p {
+      margin-top: 1mm;
+    }
+
     .execution-card .card-shell,
     .impact-card .card-shell {
       gap: 2.8mm;
@@ -488,7 +526,7 @@
 
     .deliverable-item,
     .step-item {
-      padding: 2.6mm 3.1mm 2.6mm 4mm;
+      padding: 3.35mm 0.9mm 3.35mm 3.8mm;
       border: 1px solid var(--line-soft);
       border-radius: 12px;
       background: #ffffff;
@@ -532,7 +570,7 @@
     }
 
     .impact-item {
-      min-height: 22mm;
+      min-height: 14mm;
       padding: 2.7mm 3mm 2.5mm 3.8mm;
       border: 1px solid #edf1f5;
       border-radius: 12px;
@@ -573,6 +611,36 @@
 
     .investment-card .card-shell {
       gap: 2.5mm;
+    }
+
+    .operation-card .card-shell {
+      gap: 2.5mm;
+    }
+
+    .page-two-top .operation-card {
+      order: 2;
+    }
+
+    .page-two-top .investment-card {
+      order: 1;
+    }
+
+    .page-one .deliverable-list {
+      gap: 1.6mm;
+    }
+
+    .page-one .deliverable-item {
+      padding: 3.35mm 0.9mm 3.35mm 3.8mm;
+    }
+
+    .page-one .deliverable-item h3 {
+      font-size: 9.25px;
+      margin-bottom: 0.55mm;
+    }
+
+    .page-one .deliverable-item p {
+      font-size: 8.45px;
+      line-height: 1.32;
     }
 
     .investment-highlight {
@@ -735,8 +803,7 @@
         padding: 24px 20px 28px;
       }
 
-      .hero,
-      .page-one .page-grid,
+      .page-one-layout,
       .page-two-top,
       .bottom-grid,
       .timeline-grid,
@@ -744,7 +811,13 @@
         grid-template-columns: 1fr;
       }
 
-      .stack {
+      .page-two-top .operation-card,
+      .page-two-top .investment-card {
+        order: initial;
+      }
+
+      .page-one-main,
+      .page-one-side {
         grid-template-rows: none;
       }
 
@@ -788,35 +861,17 @@
   <main class="document" role="document" aria-label="Proposta executiva ADA">
     <section class="page page-one" aria-label="Página 1">
       <div class="page-shell">
-        <!-- Cabeçalho executivo -->
-        <header class="hero">
-          <div>
-            <div class="eyebrow">
-              <span class="eyebrow-mark" aria-hidden="true"></span>
-              <span>Proposta Executiva</span>
-            </div>
-            <h1 class="hero-title">ADA — Proposta de Construção do ERP com Arquitetura Orientada a IA</h1>
-            <p class="hero-subtitle">Abordagem para redução de custo, prazo e habilitação real de IA na operação.</p>
-          </div>
+        <div class="page-one-layout">
+          <div class="page-column page-one-main">
+            <header class="hero-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-mark" aria-hidden="true"></span>
+                <span>Proposta Executiva</span>
+              </div>
+              <h1 class="hero-title">ADA — Proposta de Construção do ERP com Arquitetura Orientada a IA</h1>
+              <p class="hero-subtitle">Abordagem para redução de custo, prazo e habilitação real de IA na operação.</p>
+            </header>
 
-          <aside class="hero-panel" aria-label="Resumo executivo ADA">
-            <div class="hero-badge" aria-label="Identificação UBC">
-              <span class="hero-badge-mark" aria-hidden="true"></span>
-              <span class="hero-badge-text">UBC</span>
-            </div>
-            <span class="hero-panel-label">Projeto ADA</span>
-            <div class="hero-panel-title">ADA</div>
-            <p class="hero-panel-copy">Construção de um ERP estruturado para que a operação e a inteligência artificial evoluam sobre a mesma base de negócio.</p>
-            <ul class="micro-list">
-              <li>Núcleo funcional com entrega progressiva</li>
-              <li>Base unificada para regras, processos e dados</li>
-              <li>Horizonte de execução inicial em 6 meses</li>
-            </ul>
-          </aside>
-        </header>
-
-        <div class="page-grid">
-          <div class="stack">
             <article class="card accent-orange" aria-labelledby="contexto-title">
               <div class="card-shell">
                 <div class="section-head">
@@ -865,73 +920,124 @@
                 </div>
               </div>
             </article>
+
+            <article class="card execution-card accent-orange" aria-labelledby="execucao-title">
+              <div class="card-shell">
+                <div class="section-head">
+                  <div>
+                    <span class="section-kicker">Roadmap de implementação</span>
+                    <h2 class="section-title" id="execucao-title">4. Plano de Execução (6 meses)</h2>
+                  </div>
+                  <span class="section-index">04</span>
+                </div>
+
+                <div class="timeline-grid">
+                  <section class="phase" aria-label="Mês 1 a 2">
+                    <h3 class="phase-title">Mês 1–2</h3>
+                    <ul class="body-list">
+                      <li>Levantamento de regras e processos</li>
+                      <li>Modelagem inicial</li>
+                    </ul>
+                  </section>
+
+                  <section class="phase" aria-label="Mês 3 a 4">
+                    <h3 class="phase-title">Mês 3–4</h3>
+                    <ul class="body-list">
+                      <li>Construção dos módulos críticos</li>
+                      <li>IA operando como suporte interno</li>
+                    </ul>
+                  </section>
+
+                  <section class="phase" aria-label="Mês 5 a 6">
+                    <h3 class="phase-title">Mês 5–6</h3>
+                    <ul class="body-list">
+                      <li>Consolidação do sistema</li>
+                      <li>Automações e relatórios</li>
+                      <li>Go-live assistido</li>
+                    </ul>
+                  </section>
+                </div>
+              </div>
+            </article>
           </div>
 
-          <article class="card accent-gray" aria-labelledby="escopo-title">
-            <div class="card-shell">
-              <div class="section-head">
-                <div>
-                  <span class="section-kicker">Entrada recomendada</span>
-                  <h2 class="section-title" id="escopo-title">3. Escopo Inicial (Piloto)</h2>
-                </div>
-                <span class="section-index">03</span>
+          <div class="page-column page-one-side">
+            <aside class="hero-panel" aria-label="Resumo executivo ADA">
+              <div class="hero-badge" aria-label="Identificação UBC">
+                <span class="hero-badge-mark" aria-hidden="true"></span>
+                <span class="hero-badge-text">UBC</span>
               </div>
+              <span class="hero-panel-label">Projeto ADA</span>
+              <div class="hero-panel-title">ADA</div>
+              <p class="hero-panel-copy">Construção de um ERP estruturado para que a operação e a inteligência artificial evoluam sobre a mesma base de negócio.</p>
+              <ul class="micro-list">
+                <li>Núcleo funcional com entrega progressiva</li>
+                <li>Base unificada para regras, processos e dados</li>
+                <li>Horizonte de execução inicial em 6 meses</li>
+              </ul>
+            </aside>
 
-              <div class="section-copy">
-                <p>A proposta inicia com a construção de um núcleo funcional do ADA, concentrado em um primeiro ciclo de entrega controlado.</p>
-                <ul class="body-list">
-                  <li>Estrutura base da plataforma</li>
-                  <li>Módulos críticos do negócio</li>
-                  <li>Integração inicial de dados</li>
-                  <li>IA operando sobre regras e processos</li>
-                </ul>
-                <div class="note-box">
-                  <span class="note-label">Objetivo</span>
-                  <p>Validar a abordagem com entrega funcional e geração de valor real, reduzindo o risco antes da expansão do ERP.</p>
+            <article class="card accent-gray" aria-labelledby="escopo-title">
+              <div class="card-shell">
+                <div class="section-head">
+                  <div>
+                    <span class="section-kicker">Entrada recomendada</span>
+                    <h2 class="section-title" id="escopo-title">3. Escopo Inicial (Piloto)</h2>
+                  </div>
+                  <span class="section-index">03</span>
+                </div>
+
+                <div class="section-copy">
+                  <p>A proposta inicia com a construção de um núcleo funcional do ADA, concentrado em um primeiro ciclo de entrega controlado.</p>
+                  <ul class="body-list">
+                    <li>Estrutura base da plataforma</li>
+                    <li>Módulos críticos do negócio</li>
+                    <li>Integração inicial de dados</li>
+                    <li>IA operando sobre regras e processos</li>
+                  </ul>
+                  <div class="note-box">
+                    <span class="note-label">Objetivo</span>
+                    <p>Validar a abordagem com entrega funcional e geração de valor real, reduzindo o risco antes da expansão da aplicação.</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
+            </article>
+
+            <article class="card" aria-labelledby="entregaveis-title">
+              <div class="card-shell">
+                <div class="section-head">
+                  <div>
+                    <span class="section-kicker">Resultado esperado</span>
+                    <h2 class="section-title" id="entregaveis-title">5. Entregáveis</h2>
+                  </div>
+                  <span class="section-index">05</span>
+                </div>
+
+                <div class="deliverable-list">
+                  <article class="deliverable-item">
+                    <h3>ERP funcional (núcleo)</h3>
+                    <p>Base operacional pronta para validar a nova arquitetura em ambiente real.</p>
+                  </article>
+
+                  <article class="deliverable-item">
+                    <h3>IA integrada operando</h3>
+                    <p>Capacidade inicial de apoio à operação a partir das regras e processos estruturados.</p>
+                  </article>
+
+                  <article class="deliverable-item">
+                    <h3>Automações iniciais</h3>
+                    <p>Primeiros fluxos automatizados com ganho de eficiência operacional.</p>
+                  </article>
+
+                  <article class="deliverable-item">
+                    <h3>Base preparada para expansão</h3>
+                    <p>Fundação técnica e lógica de negócio pronta para evolução contínua.</p>
+                  </article>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
-
-        <article class="card execution-card accent-orange" aria-labelledby="execucao-title">
-          <div class="card-shell">
-            <div class="section-head">
-              <div>
-                <span class="section-kicker">Roadmap de implementação</span>
-                <h2 class="section-title" id="execucao-title">4. Plano de Execução (6 meses)</h2>
-              </div>
-              <span class="section-index">04</span>
-            </div>
-
-            <div class="timeline-grid">
-              <section class="phase" aria-label="Mês 1 a 2">
-                <h3 class="phase-title">Mês 1–2</h3>
-                <ul class="body-list">
-                  <li>Levantamento de regras e processos</li>
-                  <li>Modelagem inicial</li>
-                </ul>
-              </section>
-
-              <section class="phase" aria-label="Mês 3 a 4">
-                <h3 class="phase-title">Mês 3–4</h3>
-                <ul class="body-list">
-                  <li>Construção dos módulos críticos</li>
-                  <li>IA operando como suporte interno</li>
-                </ul>
-              </section>
-
-              <section class="phase" aria-label="Mês 5 a 6">
-                <h3 class="phase-title">Mês 5–6</h3>
-                <ul class="body-list">
-                  <li>Consolidação do sistema</li>
-                  <li>Automações e relatórios</li>
-                  <li>Go-live assistido</li>
-                </ul>
-              </section>
-            </div>
-          </div>
-        </article>
 
         <div class="page-number">Página 1 de 2</div>
       </div>
@@ -940,36 +1046,31 @@
     <section class="page page-two" aria-label="Página 2">
       <div class="page-shell">
         <div class="page-two-top">
-          <article class="card" aria-labelledby="entregaveis-title">
+          <article class="card operation-card" aria-labelledby="operacao-title">
             <div class="card-shell">
               <div class="section-head">
                 <div>
-                  <span class="section-kicker">Resultado esperado</span>
-                  <h2 class="section-title" id="entregaveis-title">5. Entregáveis</h2>
+                  <span class="section-kicker">Modelo pós-entrega</span>
+                  <h2 class="section-title" id="operacao-title">7. Modelo de Operação da Plataforma</h2>
                 </div>
-                <span class="section-index">05</span>
+                <span class="section-index">07</span>
               </div>
 
-              <div class="deliverable-list">
-                <article class="deliverable-item">
-                  <h3>ERP funcional (núcleo)</h3>
-                  <p>Base operacional pronta para validar a nova arquitetura em ambiente real.</p>
-                </article>
+              <div class="section-copy">
+                <p>Após a entrega do núcleo inicial, a operação da plataforma segue um modelo contínuo, que inclui:</p>
+                <ul class="body-list">
+                  <li>Manutenção da plataforma</li>
+                  <li>Evolução da plataforma</li>
+                  <li>Suporte e melhorias contínuas</li>
+                  <li>Operação da camada de inteligência artificial</li>
+                </ul>
+                <p>Esse modelo permite que o custo acompanhe o uso real da plataforma, garantindo previsibilidade e escalabilidade.</p>
+              </div>
 
-                <article class="deliverable-item">
-                  <h3>IA integrada operando</h3>
-                  <p>Capacidade inicial de apoio à operação a partir das regras e processos estruturados.</p>
-                </article>
-
-                <article class="deliverable-item">
-                  <h3>Automações iniciais</h3>
-                  <p>Primeiros fluxos automatizados com ganho de eficiência operacional.</p>
-                </article>
-
-                <article class="deliverable-item">
-                  <h3>Base preparada para expansão</h3>
-                  <p>Fundação técnica e lógica de negócio pronta para evolução contínua.</p>
-                </article>
+              <div class="note-box">
+                <span class="note-label">Estrutura de cobrança</span>
+                <p>Valor base por usuário ativo.</p>
+                <p>Camada adicional variável conforme uso de recursos de IA.</p>
               </div>
             </div>
           </article>
@@ -979,9 +1080,9 @@
               <div class="section-head">
                 <div>
                   <span class="section-kicker">Modelo econômico</span>
-                  <h2 class="section-title" id="investimento-title">7. Modelo de Investimento</h2>
+                  <h2 class="section-title" id="investimento-title">6. Modelo de Investimento</h2>
                 </div>
-                <span class="section-index">07</span>
+                <span class="section-index">06</span>
               </div>
 
               <div class="section-copy">
@@ -1018,9 +1119,9 @@
             <div class="section-head">
               <div>
                 <span class="section-kicker">Valor para a operação</span>
-                <h2 class="section-title" id="impacto-title">6. Impacto na Operação</h2>
+                <h2 class="section-title" id="impacto-title">8. Impacto na Operação</h2>
               </div>
-              <span class="section-index">06</span>
+              <span class="section-index">08</span>
             </div>
 
             <div class="impact-grid">
@@ -1058,9 +1159,9 @@
               <div class="section-head">
                 <div>
                   <span class="section-kicker">Alinhamento decisório</span>
-                  <h2 class="section-title" id="passos-title">8. Próximos Passos</h2>
+                  <h2 class="section-title" id="passos-title">9. Próximos Passos</h2>
                 </div>
-                <span class="section-index">08</span>
+                <span class="section-index">09</span>
               </div>
 
               <div class="steps-list">

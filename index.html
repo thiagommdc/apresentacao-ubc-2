@@ -351,11 +351,11 @@
     <header class="topbar">
       <div class="title-group">
         <h1>Arquitetura de IA Nativa para a UBC</h1>
-        <p>26 páginas no total</p>
+        <p id="pageCount">27 páginas no total</p>
       </div>
 
       <div class="toolbar">
-        <div class="status" id="status">Slide 1 de 26</div>
+        <div class="status" id="status">Slide 1 de 27</div>
         <button class="secondary-btn" id="syncBtn" type="button">Sincronizar áudio</button>
         <button class="primary-btn" id="narrationBtn" type="button">Reproduzir slides</button>
       </div>
@@ -380,6 +380,7 @@
       "EKsVgDy2.html",
       "87PAeniu.html",
       "8F0s1xO7.html",
+      "paradigma-comparativo.html",
       "5L2hupai.html",
       "xwHB20D7.html",
       "U26dbJhO.html",
@@ -434,6 +435,7 @@
     const narrationBtn = document.getElementById("narrationBtn");
     const syncBtn = document.getElementById("syncBtn");
     const statusEl = document.getElementById("status");
+    const pageCountEl = document.getElementById("pageCount");
     const searchParams = new URLSearchParams(window.location.search);
     const audioModeEnabled = searchParams.get("audio") === "sim";
     const AUDIO_DEBUG_PREFIX = "[presentation-audio]";
@@ -444,6 +446,9 @@
     let presentationMode = false;
     let currentSlideIndex = 0;
     let activeSlideAudioButton = null;
+    const INSERTED_SLIDES_WITHOUT_AUDIO = [7, 12];
+
+    pageCountEl.textContent = `${SLIDES.length} páginas no total`;
 
     function logAudioDebug(message, details) {
       if (details === undefined) {
@@ -455,14 +460,12 @@
     }
 
     function getSlideAudioSrc(slideNumber) {
-      const insertedSlideWithoutAudio = 7;
-      if (slideNumber === insertedSlideWithoutAudio) {
+      if (INSERTED_SLIDES_WITHOUT_AUDIO.includes(slideNumber)) {
         return null;
       }
 
-      const audioNumber = slideNumber > insertedSlideWithoutAudio
-        ? slideNumber - 1
-        : slideNumber;
+      const skippedSlides = INSERTED_SLIDES_WITHOUT_AUDIO.filter((insertedSlide) => insertedSlide < slideNumber).length;
+      const audioNumber = slideNumber - skippedSlides;
 
       return SLIDE_AUDIO_BY_NUMBER[audioNumber] || null;
     }

@@ -260,7 +260,14 @@
     if (!slideNumber) {
       return null
     }
-    return SLIDE_AUDIO_BY_NUMBER[slideNumber] || null
+    const slidesWithoutAudio = [7, 13];
+    if (slidesWithoutAudio.includes(slideNumber)) {
+      return null
+    }
+
+    const skippedSlidesBefore = slidesWithoutAudio.filter(position => position < slideNumber).length;
+    const audioNumber = slideNumber - skippedSlidesBefore;
+    return SLIDE_AUDIO_BY_NUMBER[audioNumber] || null
   }
 
   function isSlideVisibleInPresentation() {
