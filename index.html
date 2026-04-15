@@ -185,6 +185,14 @@
       transform: none;
     }
 
+    .presentation-nav {
+      display: none;
+    }
+
+    .presentation-nav-btn {
+      display: none;
+    }
+
     .viewer iframe {
       position: absolute;
       top: 0;
@@ -324,6 +332,48 @@
       display: none;
     }
 
+    body.presentation-mode .presentation-nav {
+      position: fixed;
+      inset: 0;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    body.presentation-mode .presentation-nav-btn {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: block;
+      width: clamp(96px, 12vw, 220px);
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      pointer-events: auto;
+      appearance: none;
+    }
+
+    body.presentation-mode .presentation-nav-btn:hover {
+      transform: none;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    body.presentation-mode .presentation-nav-btn:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.75);
+      outline-offset: -2px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    body.presentation-mode .presentation-nav-btn.prev {
+      left: 0;
+    }
+
+    body.presentation-mode .presentation-nav-btn.next {
+      right: 0;
+    }
+
     @media (max-width: 780px) {
       .page {
         width: min(100% - 16px, 1320px);
@@ -362,6 +412,11 @@
     </header>
 
     <main class="slides" id="slides"></main>
+
+    <div class="presentation-nav">
+      <button class="presentation-nav-btn prev" id="presentationPrevBtn" type="button" aria-label="Voltar para o slide anterior" title="Slide anterior"></button>
+      <button class="presentation-nav-btn next" id="presentationNextBtn" type="button" aria-label="Avançar para o próximo slide" title="Próximo slide"></button>
+    </div>
 
    
   </div>
@@ -436,6 +491,8 @@
     const syncBtn = document.getElementById("syncBtn");
     const statusEl = document.getElementById("status");
     const pageCountEl = document.getElementById("pageCount");
+    const presentationPrevBtn = document.getElementById("presentationPrevBtn");
+    const presentationNextBtn = document.getElementById("presentationNextBtn");
     const searchParams = new URLSearchParams(window.location.search);
     const audioModeEnabled = searchParams.get("audio") === "sim";
     const AUDIO_DEBUG_PREFIX = "[presentation-audio]";
@@ -887,11 +944,26 @@
       updateSlideAudioButtons();
     });
 
-    document.addEventListener("click", () => {
-      if (narrationEnabled) {
-        window.setTimeout(syncNarration, 50);
+    document.addEventListener("click", (event) => {
+      const clickTarget = event.target instanceof Element ? event.target : null;
+      if (!narrationEnabled || clickTarget?.closest(".presentation-nav-btn")) {
+        return;
       }
+
+      window.setTimeout(syncNarration, 50);
     }, true);
+
+    presentationPrevBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goToSlide(currentSlideIndex - 1);
+    });
+
+    presentationNextBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goToSlide(currentSlideIndex + 1);
+    });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
