@@ -30,7 +30,7 @@ A aplicação, criada com a ferramenta, vai ter à disposição um agente de IA 
 Para entendermos o que isso pode fazer pela empresa, eu vou listar 6 casos de uso:
 
 SLIDE 2 - Usuário muito mais independente e produtivo
-Nós sabemos que quanto mais uma conhece de um processo, mais ela vai conseguir ser produtiva e contribuir com esse processo.
+Nós sabemos que quanto mais uma pessoa conhece de um processo, mais ela vai conseguir ser produtiva e contribuir com esse processo.
 E sabemos, também, que grande parte dos gargalos dentro da empresa não são técnicos — são de conhecimento.
 O conhecimento fica concentrado em poucas pessoas e isso desacelera tudo. 
 Mas quando incorporamos IA com contexto do negócio, esse conhecimento deixa de ser restrito e passa a ser acessível. 
@@ -119,7 +119,7 @@ Agora vem a pergunta: Se isso é o que toda empresa quer. E existe um investimen
 Slide 8 — A limitação atual
 Pra que a gente consiga fazer tudo isso funcionar a gente precisa ter uma IA que é especialista no contexto da empresa.
 O problema não está na IA… está na forma como os sistemas são construídos hoje. 
-Sistemas tradicionais são construídos com arquitetura distribuída e regras distribuídas pelas várias camadas da aplicação. Tem regras no front, back do front, no back, no banco e nos micro serviços independentes. 
+Sistemas tradicionais são construídos com arquitetura distribuída e regras distribuídas pelas várias camadas da aplicação. Tem regras no front, na camada intermediaria, no back, no banco e nos micro serviços independentes. 
 Slide 9 — O impacto disso
 Isso significa que o conhecimento do negócio não está em um lugar só.
 Ele está espalhado em centenas de milhares de linhas de código. Muitas vezes implícito, difícil de rastrear, e dependente de contexto.
@@ -152,8 +152,7 @@ Slide imagem
 Slide 12 — A mudança de paradigma
 Ao invés de tentar adaptar a IA a um sistema que não foi feito para ela… 
 nós mudamos o próprio modelo de construção do sistema.
-Toda a definição da aplicação — interface, regras de front, back do front, back-end e automações — passa a existir em uma estrutura única e padronizada.
-Tudo passa a ser descrito em uma estrutura única, padronizada e legível pela IA. 
+Toda a definição da aplicação — interface, regras de front, back do front, back-end e automações — passa a existir em uma estrutura única e padronizada e legível pela IA. 
 E como tudo está em uma estrutura única e padronizada… isso não fica dependente de uma pessoa ou de conhecimento implícito no código.
 Isso elimina a fragmentação e transforma o sistema em algo estruturado, consistente e legível — não só para humanos, mas principalmente para IA.
 Slide 13 — O que isso muda
@@ -162,6 +161,8 @@ As regras deixam de estar escondidas em código e passam a ser explícitas.
 O sistema deixa de ser um conjunto de implementações técnicas e passa a ser uma representação clara do negócio.
 E, mais importante: a IA consegue entender o sistema de forma completa, sem precisar inferir ou ‘adivinhar’ comportamento.
 Isso muda completamente o nível de precisão e confiabilidade que conseguimos ter com relação a IA.
+
+
 Slide 14 — A analogia
 Uma forma simples de entender isso é com uma analogia:
 No modelo tradicional, é como se a IA tivesse que ler, a cada interação, um livro inteiro, com milhares de páginas, para tentar entender como a empresa funciona.
@@ -191,22 +192,67 @@ Slide 18 — Conclusão
 Isso não é apenas tecnologia. É uma nova forma de construir sistemas: Sistemas que a IA consegue entender.
 SLIDE 19 — A plataforma na prática 
 É exatamente isso que a plataforma que eu criei resolve.
-Ela funciona como um motor único. Ela interpreta e cria dinamicamente o sistema a partir de uma estrutura padronizada, que é o JSON que eu falei. A mesma que a IA consegue entender.
+Ela funciona como um motor único. Ela interpreta e cria dinamicamente o sistema a partir de uma estrutura padronizada. A mesma que a IA consegue entender.
 A forma como a plataforma foi construída permite que a IA entenda o contexto do sistema ..
 tome decisões dentro dos processos… 
 e execute ações de forma consistente. 
 Porque aqui ela não está ‘tentando interpretar’ algo de fora… 
 …ela está dentro de uma estrutura que já foi pensada pra isso. 
 
+Slide 22.1 – GIF automação
+Esse aqui é um fluxo real dentro da plataforma. 
+Um processo que, no modelo tradicional…levaria semanas de desenvolvimento. 
+(guiar) 
+Aqui ele está analisando os dados… 
+cruzando com documentação e histórico… 
+identificando inconsistências… 
+(devagar)
+E aqui… 
+…entra a parte mais importante. 
+Ele decide o que fazer 
+Se pode liberar automaticamente… 
+se precisa de ajuste… 
+ou se precisa de análise. 
+(deixa o gif rodando um pouco)
+Tudo isso acontecendo com base no contexto do negócio… e sem precisar escrever código. 
+...Mas o mais importante não é a velocidade… 
+…é o que isso se torna por trás. 
 
+Slide 22.2 – Print automação
+Agora… olha esse ponto aqui. 
+É aqui que a decisão acontece. 
+No modelo tradicional… é aqui que a gente escreveria dezenas de regras em código. 
+Validação… exceção… condição… 
+Aqui… isso está estruturado. 
+De forma clara… explícita… e organizada. 
+E é exatamente isso que permite transformar o fluxo em algo que a IA entende. 
+Porque tudo isso… 
+…vira isso. 
 
+Slide 22.3 – JSON simplificado
+Isso aqui é uma versão simplificada… só pra visualizar a estrutura. 
+Mas tudo aquilo que a gente viu no fluxo… 
+…está aqui. 
+Uma estrutura única onde o comportamento do sistema está definido… 
+Onde os dados e regras de negócio ficam explícitos… 
+E aqui… 
+…está a inteligência. 
+As decisões… os critérios… o comportamento do sistema. 
+E aqui… a execução. 
+Percebe que isso aqui não é código… 
+…é a lógica do negócio estruturada. 
+No modelo tradicional… isso estaria espalhado… 
+Aqui… …nasce organizado. 
+E é exatamente isso que permite que a IA entenda… 
+decida… 
+e opere o sistema com consistência. 
 
 SLIDE 23 — O diferencial real
 Isso muda completamente o nível de automação e integração que a gente consegue atingir.
 Não é mais uma ferramenta. É uma mudança de paradigma.
     • A diferença é simples:
         ◦ No modelo tradicional a gente adapta a IA ao sistema.
-        ◦ Na minha abordagem o sistema já nasce pronto para IA.
+        ◦ Na nessa abordagem o sistema já nasce pronto para IA.
 SLIDE 24 – Com isso nós temos o impacto máximo na operação
 E quando a gente muda o modelo…
 “Tudo aquilo que parecia complexo… passa a ser simples.”
@@ -230,14 +276,6 @@ E quando a gente muda o modelo…
 
 
 
-
-
-
-
-
-
-
-
 SLIDE 25 — Comparativo direto
 Aqui a gente chega no ponto mais importante da apresentação.
 “Existem duas formas de construir o ADA.”
@@ -248,7 +286,7 @@ Demora anos.
 Custa milhões.
 E no final, entrega um sistema complexo,
 difícil de evoluir,
-e que limita o uso real de IA.
+e que inviabiliza o uso real de IA.
 Ou seja: a gente resolve o problema de hoje… e cria o problema de amanhã. 
 
 👉 (vira para sua solução)
