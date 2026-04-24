@@ -16,6 +16,7 @@ e permitir que a gente use IA de forma prática, confiável e no nível que o ne
 
 Antes de entrar na proposta, só um contexto rápido.
 Esse trabalho começou como um projeto pessoal meu, ainda antes de eu entrar na empresa…
+e foi evoluindo junto com o aprofundamento que eu tive na área — inclusive durante a minha pós em IA.
 com foco em entender como estruturar sistemas pensando em IA.
 Na época, a tecnologia ainda não estava madura o suficiente…
 …mas com a evolução recente, isso passou a funcionar de forma muito mais consistente.
@@ -37,10 +38,10 @@ Mas quando incorporamos IA com contexto do negócio, esse conhecimento deixa de 
 Os colaboradores vão ter a disposição um assistente pessoal de IA onde eles vão poder tirar dúvidas sobre regras, processos, detalhes da operação, comportamentos do sistema.
 Na prática, isso significa que um analista pode perguntar coisas como:  Se um pagamento pode ser feito mesmo com essa divergência de cadastro? 
 A IA:
-    • explica a regra específica 
-    • mostra se há exceção 
-    • indica se precisa de validação adicional 
-    • aponta o fluxo correto
+•	explica a regra específica 
+•	mostra se há exceção 
+•	indica se precisa de validação adicional 
+•	aponta o fluxo correto
 Isso nivela o conhecimento, reduz dependência, elimina gargalos e aumenta drasticamente a autonomia da operação.
 SLIDE 3 - Relatórios sob demanda
 Hoje, o tempo entre a pergunta e a resposta é um dos maiores gargalos na tomada de decisão.
@@ -49,10 +50,10 @@ Com essa abordagem, o gestor simplesmente pergunta, e a IA faz todo o trabalho: 
 O que antes levava dias, agora acontece em minutos — com muito mais consistência e profundidade.
 Na prática o gestor pode perguntar: Quais são os associados com maior arrecadação que tiveram queda nos últimos 3 meses e ainda têm valores relevantes em retido?
 A IA responde com:
-    • lista priorizada dos associados 
-    • percentual de queda 
-    • valor em retido 
-    • e uma sugestão de ação (ex: regularização, contato, análise específica)
+•	lista priorizada dos associados 
+•	percentual de queda 
+•	valor em retido 
+•	e uma sugestão de ação (ex: regularização, contato, análise específica)
 Hoje, para responder isso, a gente precisaria cruzar várias bases e montar análise manual.
 Aqui… isso sai na hora. 
 A decisão não espera mais o relatório — o relatório nasce na hora da decisão.
@@ -60,6 +61,16 @@ SLIDE 4 - Automação de processos
 Usando um agente de IA especialista, conseguimos criar fluxos de automação inteligentes.
 Onde a inteligência artificial é usada dentro do processo para tomar decisões.
 Na prática, isso permite analisar, tratar e realizar ações sobre grandes volumes de dados usando a IA para tomar decisões, em tempo de execução. O que seria impossível ou extremamente demorado de fazer manualmente.
+
+Mas aqui tem um ponto importante. 
+A IA não precisa operar sozinha. 
+A gente define o nível de autonomia.
+- Ela pode só sugerir uma ação…
+- Pode sugerir e alguém aprova…
+- Ou pode executar automaticamente — quando o risco é baixo.
+Ou seja…
+A gente não perde controle.
+A gente escolhe onde automatizar… e onde manter decisão humana.
 Isso aqui não é automação como a gente está acostumado. 
 No modelo tradicional…você automatiza tarefas. 
 Aqui… a gente automatiza decisões. 
@@ -67,17 +78,18 @@ E isso pode ser usado para diversas finalidades, por exemplo:
 “Na auditoria, ela identifica padrões e inconsistências automaticamente.” 
 “No pagamento, ela valida, cruza dados e reduz erro antes de executar.” 
 
+Automação aqui não é sobre perder controle… é sobre decidir onde vale automatizar.
 
 SLIDE 5 - Retido
 Outro exemplo o retido: Com essa abordagem, a inteligência artificial pode ser usada para garimpar a base de dados do retido, cruzar as informações e agrupar esses dados de maneira que fique mais fácil a gente identificar e recuperar esses valores.
 A IA pode analisar toda a base de valores retidos e identificar automaticamente os casos com maior potencial de recuperação. 
 Ela:
-    • cruza inconsistências de cadastro, documentação e histórico 
-    • identifica padrões de bloqueio 
-    • prioriza os casos com maior valor e maior chance de resolução 
+•	cruza inconsistências de cadastro, documentação e histórico 
+•	identifica padrões de bloqueio 
+•	prioriza os casos com maior valor e maior chance de resolução 
 E entrega:
-    • uma fila priorizada de atuação 
-    • com o motivo do bloqueio e sugestão de ação para cada caso
+•	uma fila priorizada de atuação 
+•	com o motivo do bloqueio e sugestão de ação para cada caso
 Hoje isso exige análise manual e esforço disperso. Aqui… a gente direciona o esforço exatamente onde tem mais retorno financeiro. 
 Isso impacta diretamente o rendimento dos associados e ainda se torna um diferencial competitivo para atrair grandes titulares para a UBC.
 
@@ -99,13 +111,13 @@ Ou seja… A gente não está só integrando sistemas.
 A gente está ampliando o alcance da IA dentro da operação. 
 Um exemplo disso funcionando seria a IA identificar automaticamente um problema, em um pagamento por exemplo, e resolver isso de ponta a ponta — inclusive fora do sistema. 
 Ela:
-    • detecta a inconsistência 
-    • consulta dados em sistemas externos 
-    • atualiza ou corrige informações necessárias 
-    • abre chamado, notifica responsáveis e registra tudo automaticamente
+•	detecta a inconsistência 
+•	consulta dados em sistemas externos 
+•	atualiza ou corrige informações necessárias 
+•	abre chamado, notifica responsáveis e registra tudo automaticamente
 O que hoje exige várias ferramentas e pessoas… passa a acontecer como um único fluxo automático. 
 
-SLIDE 8  - Desenvolvimento muito mais rápido
+SLIDE 8 - Desenvolvimento muito mais rápido
 A plataforma que criei tem várias ferramentas que aceleram drasticamente o tempo de desenvolvimento.
 
 No modelo tradicional uma ideia leva semanas… às vezes meses…só pra virar algo testável. . 
@@ -132,11 +144,20 @@ Quando esse contexto está fragmentado:
 Ela não consegue entender completamente as regras e gera respostas inconsistentes. 
 E o resultado é uma IA que parece inteligente… mas não é confiável o suficiente para operações críticas.
 Slide 11 — Sistemas modernos
-Mas e os sistemas modernos? Mesmo estes que são bem projetados, com boas práticas, microserviços…
-Eles não foram feitos para serem compreendidos por IA.
-Eles foram feitos para escalar tecnologia — não para expor claramente a lógica do negócio.
+Mas e os sistemas modernos que são bem projetados, com boas práticas? …
+E até usando IA pra gerar código? Isso resolve esse problema?
+Na prática… não.
+Porque a IA hoje ajuda a escrever código…mas continua seguindo o mesmo modelo.
+Ou seja…
+Ela acelera a construção… mas mantém a lógica espalhada…
+O sistema continua difícil de entender como um todo.
+Então mesmo com IA criando o sistema…
+a IA que vai operar depois… continua sem contexto claro
+E é por isso que o limite não está na tecnologia… está no modelo.
+Que foi feito para escalar tecnologia — não para expor claramente a lógica do negócio.
 Então, enquanto a arquitetura continuar assim, a IA sempre vai operar com limitação.
 E é exatamente isso que precisa mudar se a gente quiser usar tudo que a IA tem a nos oferecer.
+
 Slide imagem 
 “Essa imagem resume exatamente o problema.”
 (aponta esquerda)
@@ -161,8 +182,6 @@ As regras deixam de estar escondidas em código e passam a ser explícitas.
 O sistema deixa de ser um conjunto de implementações técnicas e passa a ser uma representação clara do negócio.
 E, mais importante: a IA consegue entender o sistema de forma completa, sem precisar inferir ou ‘adivinhar’ comportamento.
 Isso muda completamente o nível de precisão e confiabilidade que conseguimos ter com relação a IA.
-
-
 Slide 14 — A analogia
 Uma forma simples de entender isso é com uma analogia:
 No modelo tradicional, é como se a IA tivesse que ler, a cada interação, um livro inteiro, com milhares de páginas, para tentar entender como a empresa funciona.
@@ -178,6 +197,7 @@ Eles entendem profundamente o sistema, os fluxos, as regras e as exceções.
 É como ter um especialista interno, disponível 24 horas, com conhecimento sempre atualizado.
 Slide 16 — Impacto no negócio
 E aqui começa a aparecer o impacto real.
+O impacto aqui não é substituir pessoas… é remover gargalos de conhecimento e decisão.
 A automação deixa de ser superficial e passa a ser profunda.
 Processos que antes exigiam intervenção humana passam a ser executados com confiabilidade.
 Erros operacionais diminuem.
@@ -250,9 +270,9 @@ e opere o sistema com consistência.
 SLIDE 23 — O diferencial real
 Isso muda completamente o nível de automação e integração que a gente consegue atingir.
 Não é mais uma ferramenta. É uma mudança de paradigma.
-    • A diferença é simples:
-        ◦ No modelo tradicional a gente adapta a IA ao sistema.
-        ◦ Na nessa abordagem o sistema já nasce pronto para IA.
+•	A diferença é simples:
+o	No modelo tradicional a gente adapta a IA ao sistema.
+o	Na nessa abordagem o sistema já nasce pronto para IA.
 SLIDE 24 – Com isso nós temos o impacto máximo na operação
 E quando a gente muda o modelo…
 “Tudo aquilo que parecia complexo… passa a ser simples.”
@@ -326,9 +346,9 @@ Validar rápido.
 E escalar com segurança.
 
 Minha proposta é simples:
-    • “A gente inicia o levantamento agora” 
-    • “Em 6 meses eu entrego o primeiro núcleo funcional do ADA” 
-    • “Com IA operando de verdade dentro do sistema”
+•	“A gente inicia o levantamento agora” 
+•	“Em 6 meses eu entrego o primeiro núcleo funcional do ADA” 
+•	“Com IA operando de verdade dentro do sistema”
 Com um investimento de aproximadamente 30% do que seria gasto no modelo tradicional…
 A empresa vai economizar milhões e vai economizar anos de execução.
 
@@ -344,7 +364,7 @@ Se fizer sentido para você…
 E a gente começa.
 
 
-    • Quando ele disser ok:
+	Quando ele disser ok:
 “Perfeito.”
 (pausa curta)
 “Então vamos começar pelo módulo piloto.”
