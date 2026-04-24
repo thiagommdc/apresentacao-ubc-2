@@ -64,7 +64,7 @@ Na prática, isso permite analisar, tratar e realizar ações sobre grandes volu
 
 Mas aqui tem um ponto importante. 
 A IA não precisa operar sozinha. 
-A gente define o nível de autonomia.
+A gente define o nível de autonomia. E isso pode ser auditado, versionado e ajustado.
 - Ela pode só sugerir uma ação…
 - Pode sugerir e alguém aprova…
 - Ou pode executar automaticamente — quando o risco é baixo.
@@ -170,11 +170,12 @@ Slide imagem
 “A IA deixa de tentar adivinhar…”
 (pausa curta)
 “…e passa a operar o sistema com clareza.”
+
 Slide 12 — A mudança de paradigma
-Ao invés de tentar adaptar a IA a um sistema que não foi feito para ela… 
+Ao invés de tentar adaptar a IA a um sistema que não foi desenhado para IA operar com clareza… 
 nós mudamos o próprio modelo de construção do sistema.
 Toda a definição da aplicação — interface, regras de front, back do front, back-end e automações — passa a existir em uma estrutura única e padronizada e legível pela IA. 
-E como tudo está em uma estrutura única e padronizada… isso não fica dependente de uma pessoa ou de conhecimento implícito no código.
+E como tudo está em uma estrutura única e padronizada… isso não fica dependente de uma pessoa, qualquer desenvolvedor consegue entender - não é conhecimento implícito.
 Isso elimina a fragmentação e transforma o sistema em algo estruturado, consistente e legível — não só para humanos, mas principalmente para IA.
 Slide 13 — O que isso muda
 O impacto disso é profundo.
@@ -195,12 +196,22 @@ Não estamos falando de uma IA genérica.
 Estamos falando de agentes que se tornam especialistas no sistema da empresa.
 Eles entendem profundamente o sistema, os fluxos, as regras e as exceções.
 É como ter um especialista interno, disponível 24 horas, com conhecimento sempre atualizado.
+
+...
+
+Agora… pra não ficar só no conceito…
+Eu fiz alguns testes com esse modelo em fluxos controlados…
+E o comportamento foi consistente quando a lógica estava estruturada dessa forma.
+Quando eu tentava reproduzir o mesmo cenário com lógica distribuída…a IA já começava a perder consistência.”
+Então isso aqui não é só uma hipótese…é um comportamento que já aparece na prática.”
+
 Slide 16 — Impacto no negócio
 E aqui começa a aparecer o impacto real.
 O impacto aqui não é substituir pessoas… é remover gargalos de conhecimento e decisão.
 A automação deixa de ser superficial e passa a ser profunda.
-Processos que antes exigiam intervenção humana passam a ser executados com confiabilidade.
-Erros operacionais diminuem.
+Processos que antes exigiam intervenção humana...
+passam a poder ser automatizados com mais segurança — principalmente nos cenários mais previsíveis.
+A tendência é reduzir erros operacionais — principalmente aqueles causados por inconsistência ou falta de contexto. 
 A empresa ganha velocidade para adaptar regras e processos.
 E a eficiência operacional, usando IA, deixa de ser uma promessa — e passa a ser realidade.
 Slide 17 — Vantagem competitiva
@@ -220,52 +231,68 @@ Porque aqui ela não está ‘tentando interpretar’ algo de fora…
 …ela está dentro de uma estrutura que já foi pensada pra isso. 
 
 Slide 22.1 – GIF automação
-Esse aqui é um fluxo real dentro da plataforma. 
-Um processo que, no modelo tradicional…levaria semanas de desenvolvimento. 
-(guiar) 
-Aqui ele está analisando os dados… 
-cruzando com documentação e histórico… 
-identificando inconsistências… 
-(devagar)
-E aqui… 
-…entra a parte mais importante. 
-Ele decide o que fazer 
-Se pode liberar automaticamente… 
-se precisa de ajuste… 
-ou se precisa de análise. 
-(deixa o gif rodando um pouco)
-Tudo isso acontecendo com base no contexto do negócio… e sem precisar escrever código. 
-...Mas o mais importante não é a velocidade… 
-…é o que isso se torna por trás. 
+“Esse aqui é um fluxo real dentro da plataforma.” (pausa curta — deixa rodar)
 
-Slide 22.2 – Print automação
-Agora… olha esse ponto aqui. 
-É aqui que a decisão acontece. 
-No modelo tradicional… é aqui que a gente escreveria dezenas de regras em código. 
-Validação… exceção… condição… 
-Aqui… isso está estruturado. 
-De forma clara… explícita… e organizada. 
-E é exatamente isso que permite transformar o fluxo em algo que a IA entende. 
-Porque tudo isso… 
-…vira isso. 
+“E repara na quantidade de decisões acontecendo aqui…”
+“validação… cruzamento de dados… exceções… análise de histórico…” (pausa)
+
+“Isso aqui não é uma automação simples.”
+“A IA está analisando o contexto… e tomando decisão em tempo de execução.” (pausa)
+
+Agora entra o contraste:
+“Se isso fosse implementado no modelo tradicional…” (pausa curta)
+
+“a gente estaria escrevendo dezenas — às vezes centenas — de regras…”
+“espalhadas entre front, back, banco… e serviços.” (pausa)
+
+“E é exatamente aí que a complexidade começa a escalar.”
+👉 (não corre — deixa isso pesar)
+
+E o ponto mais crítico… é exatamente onde a decisão acontece.
+
+
+
+Slide 22.2 – PRINT (zoom no ponto de decisão)
+“Aqui.” (pausa)
+“É nesse ponto que o sistema decide o que fazer.” (pausa curta)
+“No modelo tradicional…”
+“isso viraria if, else, validação, exceção…”
+“cada ajuste vira uma nova regra…”
+“e essas regras começam a se espalhar pelo sistema.” (pausa)
+👉 frase forte:
+“Depois de um tempo… ninguém mais tem clareza do comportamento completo.”
+(pausa — deixa isso bater)
+“Aqui não.”
+(aponta) “Aqui a decisão não está escondida em código.”
+“Ela está estruturada.” (pausa curta)
+👉 frase-chave:
+“Isso aqui não é implementação… É a lógica do negócio explicita.”
+(mostra a tela do gif o print )“E tudo isso que a gente está vendo aqui
+(muda para tela do JSON)…vira isso.”
 
 Slide 22.3 – JSON simplificado
-Isso aqui é uma versão simplificada… só pra visualizar a estrutura. 
-Mas tudo aquilo que a gente viu no fluxo… 
-…está aqui. 
-Uma estrutura única onde o comportamento do sistema está definido… 
-Onde os dados e regras de negócio ficam explícitos… 
-E aqui… 
-…está a inteligência. 
-As decisões… os critérios… o comportamento do sistema. 
-E aqui… a execução. 
-Percebe que isso aqui não é código… 
-…é a lógica do negócio estruturada. 
-No modelo tradicional… isso estaria espalhado… 
-Aqui… …nasce organizado. 
-E é exatamente isso que permite que a IA entenda… 
-decida… 
-e opere o sistema com consistência. 
+“Isso aqui é uma versão simplificada… só pra visualizar a estrutura.” (pausa)
+“Mas tudo aquilo que a gente viu no fluxo…está definido aqui.” (pausa curta — aponta partes)
+
+“Percebe que isso não é código?” (pausa)
+“Isso é a definição do comportamento do sistema.”
+“No modelo tradicional…essa lógica estaria espalhada em centenas de pontos diferentes.”
+“muitas vezes implícita… difícil de rastrear… e dependente de quem escreveu.” (pausa)
+
+“Aqui… ela nasce organizada...centralizada... e explícita.”
+
+“E é exatamente isso…” (pausa curta)
+“…que permite que a IA entenda o sistema de verdade.”
+(Fecha o raciocínio) 
+“Ela não precisa interpretar comportamento…”
+“não precisa inferir regra…”
+“não precisa ‘adivinhar’ o que está acontecendo.” (pausa)
+“Ela lê a definição.”
+
+(Fechamento do bloco - muito importante)
+“E quando a IA deixa de adivinhar…” (pausa)
+“…e passa a operar em cima de uma estrutura clara…”
+“o nível de consistência e confiabilidade muda completamente.” 
 
 SLIDE 23 — O diferencial real
 Isso muda completamente o nível de automação e integração que a gente consegue atingir.
@@ -273,22 +300,27 @@ Não é mais uma ferramenta. É uma mudança de paradigma.
 •	A diferença é simples:
 o	No modelo tradicional a gente adapta a IA ao sistema.
 o	Na nessa abordagem o sistema já nasce pronto para IA.
+
+Agora… isso não substitui tudo.
+Existem cenários onde código tradicional ainda faz sentido. (pausa)
+Mas o ponto é outro. (pausa leve)
+Hoje a gente usa código pra praticamente tudo…
+…quando grande parte da lógica poderia estar estruturada.
+
 SLIDE 24 – Com isso nós temos o impacto máximo na operação
 E quando a gente muda o modelo…
-“Tudo aquilo que parecia complexo… passa a ser simples.”
-“E aquilo que era limitado… passa a escalar.”
-“A IA deixa de ser assistente… e passa a operar o sistema.”
-“Relatórios deixam de ser pedidos… e passam a ser respostas imediatas.”
-“Processos deixam de depender de pessoas… e passam a rodar com inteligência.”
-“Integrações deixam de ser projetos… e passam a ser fluxo.”
-“E o desenvolvimento…”
-“…deixa de ser gargalo.”
-...
-“Isso não é ganho incremental...”
-“Isso é mudança de patamar.”
-…
-“E é por isso que essa abordagem não é só melhor…” 
-“…ela é inevitável.” 
+Aquilo que hoje é complexo de entender e manter…passa a ser mais simples de estruturar e evoluir ao longo do tempo.
+A IA deixa de ser só um apoio pontual… e passa a conseguir atuar de forma mais consistente dentro dos processos — principalmente onde as regras estão bem definidas.
+Relatórios deixam de depender de extrações e análises manuais…e passam a poder ser gerados sob demanda, com muito mais agilidade.
+Processos passam a depender menos de intervenção manual…principalmente nas etapas mais operacionais e repetitivas.
+Integrações deixam de ser projetos longos…e passam a poder ser construídas de forma mais incremental e flexível.
+E o desenvolvimento…tende a acompanhar melhor o ritmo do negócio — com ciclos mais curtos de entrega e validação.
+
+Isso não elimina todos os desafios…
+mas muda significativamente a forma como a gente lida com eles.
+
+E o ganho aqui não é só incremental…é estrutural.
+
 
 
 
@@ -306,7 +338,7 @@ Demora anos.
 Custa milhões.
 E no final, entrega um sistema complexo,
 difícil de evoluir,
-e que inviabiliza o uso real de IA.
+e que dificulta completamente o uso real de IA.
 Ou seja: a gente resolve o problema de hoje… e cria o problema de amanhã. 
 
 👉 (vira para sua solução)
@@ -350,7 +382,7 @@ Minha proposta é simples:
 •	“Em 6 meses eu entrego o primeiro núcleo funcional do ADA” 
 •	“Com IA operando de verdade dentro do sistema”
 Com um investimento de aproximadamente 30% do que seria gasto no modelo tradicional…
-A empresa vai economizar milhões e vai economizar anos de execução.
+A empresa vai economizar anos de execução.
 
 E, sendo bem direto… pra mim esse projeto tem um valor estratégico muito grande. 
 Porque ele não é só uma entrega… é a construção de um case muito forte.
