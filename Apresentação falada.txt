@@ -342,7 +342,7 @@ Não é mais uma ferramenta. É uma mudança de paradigma.
         ◦ No modelo tradicional a gente adapta a IA ao sistema.
         ◦ Na nessa abordagem o sistema já nasce pronto para IA.
 
-SLIDE 24 – Com isso nós temos o impacto máximo na operação
+SLIDE 24 – Impacto na operação
 E quando a gente muda o modelo…
 Aquilo que hoje é complexo de entender e manter…passa a ser mais simples de estruturar e evoluir ao longo do tempo.
 A IA deixa de ser só um apoio pontual… e passa a conseguir atuar de forma mais consistente dentro dos processos — principalmente onde as regras estão bem definidas.
