@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Estrutura do Sistema</title>
+
+<style>
+body {
+    margin: 0;
+  padding: 32px 60px;
+    background: #0f172a;
+    font-family: Consolas, monospace;
+    color: #e2e8f0;
+}
+
+.code {
+  font-size: 16px;
+  line-height: 1.45;
+    white-space: normal;
+}
+
+.json-columns {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(520px, 1.4fr);
+  gap: 48px;
+  align-items: start;
+}
+
+/* Remove possíveis margens verticais adicionais dentro do bloco de código */
+.code div { margin-top: 0; margin-bottom: 0; padding: 0; }
+.code div.section { margin-top: 18px; }
+.code div.branch { margin-top: 12px; }
+
+/* Estrutura */
+.brace { color: #64748b; }
+.key { color: #e2e8f0; }
+
+/* Tipos de nó */
+.entrada { color: #38bdf8; }        /* azul */
+.decisao { color: #a78bfa; }        /* roxo */
+.caminho { color: #f59e0b; }        /* amarelo */
+.acao { color: #22c55e; }           /* verde */
+.critico { color: #ef4444; }        /* vermelho */
+.neutro { color: #cbd5f5; }         /* cinza claro */
+
+.indent-1 { margin-left: 40px; }
+.indent-2 { margin-left: 80px; }
+.indent-3 { margin-left: 120px; }
+.indent-4 { margin-left: 160px; }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="code">
+<span class="brace">{</span>
+<div class="indent-1"><span class="key">"processo"</span>: <span class="entrada">"analise_de_pagamentos"</span>,</div>
+
+<div class="json-columns">
+<div>
+<div class="indent-1 section"><span class="key">"entrada"</span>: <span class="brace">{</span></div>
+<div class="indent-2 entrada">"dados": "pagamentos_com_inconsistencia",</div>
+<div class="indent-2 entrada">"processamento": "para_cada_pagamento",</div>
+<div class="indent-2 entrada">"enriquecimento": "validar_dados_externos"</div>
+<div class="indent-1"><span class="brace">}</span>,</div>
+
+<div class="indent-1 section"><span class="key">"decisao"</span>: <span class="brace">{</span></div>
+<div class="indent-2 decisao">"tipo": "analise_inteligente",</div>
+<div class="indent-2 decisao">"criterios": [</div>
+<div class="indent-3 decisao">"consistencia_cadastral",</div>
+<div class="indent-3 decisao">"historico_do_associado",</div>
+<div class="indent-3 decisao">"risco_operacional"</div>
+<div class="indent-2 decisao">]</div>
+<div class="indent-1"><span class="brace">}</span>,</div>
+</div>
+
+<div>
+<div class="indent-1 section"><span class="key">"caminhos"</span>: <span class="brace">{</span></div>
+<div class="indent-2 caminho">"liberacao_automatica": <span class="brace">{</span></div>
+<div class="indent-3 caminho">"condicao": "sem_inconsistencias_relevantes",</div>
+<div class="indent-3 acao">"acoes": [</div>
+<div class="indent-4 acao">"atualizar_status_para_liberado",</div>
+<div class="indent-4 acao">"notificar_pagamento"</div>
+<div class="indent-3 acao">]</div>
+<div class="indent-2 brace">},</div>
+
+<div class="indent-2 caminho branch">"ajuste_necessario": <span class="brace">{</span></div>
+<div class="indent-3 caminho">"condicao": "inconsistencia_corrigivel",</div>
+<div class="indent-3 acao">"acoes": [</div>
+<div class="indent-4 acao">"solicitar_correcao",</div>
+<div class="indent-4 acao">"marcar_como_pendente"</div>
+<div class="indent-3 acao">]</div>
+<div class="indent-2 brace">},</div>
+
+<div class="indent-2 critico branch">"analise_critica": <span class="brace">{</span></div>
+<div class="indent-3 critico">"condicao": "risco_ou_dado_critico",</div>
+<div class="indent-3 acao">"acoes": [</div>
+<div class="indent-4 acao">"bloquear_pagamento",</div>
+<div class="indent-4 acao">"abrir_chamado"</div>
+<div class="indent-3 acao">]</div>
+<div class="indent-2 brace">},</div>
+
+<div class="indent-2 neutro branch">"revisao_manual": <span class="brace">{</span></div>
+<div class="indent-3 neutro">"condicao": "caso_nao_classificado",</div>
+<div class="indent-3 acao">"acoes": [</div>
+<div class="indent-4 acao">"encaminhar_para_fila_de_excecao"</div>
+<div class="indent-3 acao">]</div>
+<div class="indent-2 brace">}</div>
+
+<div class="indent-1 brace">}</div>
+</div>
+</div>
+<span class="brace">}</span>
+</div>
+
+</body>
+</html>

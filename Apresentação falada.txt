@@ -38,10 +38,10 @@ Mas quando incorporamos IA com contexto do negócio, esse conhecimento deixa de 
 Os colaboradores vão ter a disposição um assistente pessoal de IA onde eles vão poder tirar dúvidas sobre regras, processos, detalhes da operação, comportamentos do sistema.
 Na prática, isso significa que um analista pode perguntar coisas como:  Se um pagamento pode ser feito mesmo com essa divergência de cadastro? 
 A IA:
-•	explica a regra específica 
-•	mostra se há exceção 
-•	indica se precisa de validação adicional 
-•	aponta o fluxo correto
+    • explica a regra específica 
+    • mostra se há exceção 
+    • indica se precisa de validação adicional 
+    • aponta o fluxo correto
 Isso nivela o conhecimento, reduz dependência, elimina gargalos e aumenta drasticamente a autonomia da operação.
 SLIDE 3 - Relatórios sob demanda
 Hoje, o tempo entre a pergunta e a resposta é um dos maiores gargalos na tomada de decisão.
@@ -50,10 +50,10 @@ Com essa abordagem, o gestor simplesmente pergunta, e a IA faz todo o trabalho: 
 O que antes levava dias, agora acontece em minutos — com muito mais consistência e profundidade.
 Na prática o gestor pode perguntar: Quais são os associados com maior arrecadação que tiveram queda nos últimos 3 meses e ainda têm valores relevantes em retido?
 A IA responde com:
-•	lista priorizada dos associados 
-•	percentual de queda 
-•	valor em retido 
-•	e uma sugestão de ação (ex: regularização, contato, análise específica)
+    • lista priorizada dos associados 
+    • percentual de queda 
+    • valor em retido 
+    • e uma sugestão de ação (ex: regularização, contato, análise específica)
 Hoje, para responder isso, a gente precisaria cruzar várias bases e montar análise manual.
 Aqui… isso sai na hora. 
 A decisão não espera mais o relatório — o relatório nasce na hora da decisão.
@@ -84,12 +84,12 @@ SLIDE 5 - Retido
 Outro exemplo o retido: Com essa abordagem, a inteligência artificial pode ser usada para garimpar a base de dados do retido, cruzar as informações e agrupar esses dados de maneira que fique mais fácil a gente identificar e recuperar esses valores.
 A IA pode analisar toda a base de valores retidos e identificar automaticamente os casos com maior potencial de recuperação. 
 Ela:
-•	cruza inconsistências de cadastro, documentação e histórico 
-•	identifica padrões de bloqueio 
-•	prioriza os casos com maior valor e maior chance de resolução 
+    • cruza inconsistências de cadastro, documentação e histórico 
+    • identifica padrões de bloqueio 
+    • prioriza os casos com maior valor e maior chance de resolução 
 E entrega:
-•	uma fila priorizada de atuação 
-•	com o motivo do bloqueio e sugestão de ação para cada caso
+    • uma fila priorizada de atuação 
+    • com o motivo do bloqueio e sugestão de ação para cada caso
 Hoje isso exige análise manual e esforço disperso. Aqui… a gente direciona o esforço exatamente onde tem mais retorno financeiro. 
 Isso impacta diretamente o rendimento dos associados e ainda se torna um diferencial competitivo para atrair grandes titulares para a UBC.
 
@@ -111,10 +111,10 @@ Ou seja… A gente não está só integrando sistemas.
 A gente está ampliando o alcance da IA dentro da operação. 
 Um exemplo disso funcionando seria a IA identificar automaticamente um problema, em um pagamento por exemplo, e resolver isso de ponta a ponta — inclusive fora do sistema. 
 Ela:
-•	detecta a inconsistência 
-•	consulta dados em sistemas externos 
-•	atualiza ou corrige informações necessárias 
-•	abre chamado, notifica responsáveis e registra tudo automaticamente
+    • detecta a inconsistência 
+    • consulta dados em sistemas externos 
+    • atualiza ou corrige informações necessárias 
+    • abre chamado, notifica responsáveis e registra tudo automaticamente
 O que hoje exige várias ferramentas e pessoas… passa a acontecer como um único fluxo automático. 
 
 SLIDE 8 - Desenvolvimento muito mais rápido
@@ -197,14 +197,6 @@ Estamos falando de agentes que se tornam especialistas no sistema da empresa.
 Eles entendem profundamente o sistema, os fluxos, as regras e as exceções.
 É como ter um especialista interno, disponível 24 horas, com conhecimento sempre atualizado.
 
-...
-
-Agora… pra não ficar só no conceito…
-Eu fiz alguns testes com esse modelo em fluxos controlados…
-E o comportamento foi consistente quando a lógica estava estruturada dessa forma.
-Quando eu tentava reproduzir o mesmo cenário com lógica distribuída…a IA já começava a perder consistência.”
-Então isso aqui não é só uma hipótese…é um comportamento que já aparece na prática.”
-
 Slide 16 — Impacto no negócio
 E aqui começa a aparecer o impacto real.
 O impacto aqui não é substituir pessoas… é remover gargalos de conhecimento e decisão.
@@ -224,88 +216,131 @@ Isso não é apenas tecnologia. É uma nova forma de construir sistemas: Sistema
 SLIDE 19 — A plataforma na prática 
 É exatamente isso que a plataforma que eu criei resolve.
 Ela funciona como um motor único. Ela interpreta e cria dinamicamente o sistema a partir de uma estrutura padronizada. A mesma que a IA consegue entender.
-A forma como a plataforma foi construída permite que a IA entenda o contexto do sistema ..
+A forma como a plataforma foi construída permite que a IA entenda o contexto do sistema.
 tome decisões dentro dos processos… 
 e execute ações de forma consistente. 
 Porque aqui ela não está ‘tentando interpretar’ algo de fora… 
 …ela está dentro de uma estrutura que já foi pensada pra isso. 
 
-Slide 22.1 – GIF automação
+Slide 20 – GIF automação
+Agora… pra não ficar só no conceito… 
 “Esse aqui é um fluxo real dentro da plataforma.” (pausa curta — deixa rodar)
 
 “E repara na quantidade de decisões acontecendo aqui…”
-“validação… cruzamento de dados… exceções… análise de histórico…” (pausa)
+“validação… cruzamento de dados… exceções… análise de historico” (pausa)
 
 “Isso aqui não é uma automação simples.”
+Para cada registro da nossa busca.
 “A IA está analisando o contexto… e tomando decisão em tempo de execução.” (pausa)
 
-Agora entra o contraste:
-“Se isso fosse implementado no modelo tradicional…” (pausa curta)
+Se isso fosse implementado no modelo tradicional… a gente estaria escrevendo dezenas — às vezes centenas — de regras…
+“espalhadas entre front, back, banco… e serviços.” 
 
-“a gente estaria escrevendo dezenas — às vezes centenas — de regras…”
-“espalhadas entre front, back, banco… e serviços.” (pausa)
+E é exatamente aí que a complexidade começa a escalar...
+Depois de um tempo… ninguém mais tem clareza do comportamento completo.
 
-“E é exatamente aí que a complexidade começa a escalar.”
 👉 (não corre — deixa isso pesar)
 
+Nó de IA
+
 E o ponto mais crítico… é exatamente onde a decisão acontece.
+A decisão não é uma regra fixa. 
+(foco) A gente usa um agente de IA especialista no contexto da empresa. 
+
+E diferente de uma IA genérica… 
+ele pode consultar dados relevantes… 
+cruzar histórico…
+e reunir o contexto que precisar pra decidir melhor. 
+
+Nó de decisão
+
+E esse ponto aqui… é exatamente onde mais exige cuidado. 
+Porque é onde uma decisão pode gerar impacto real. 
+
+Agora… isso não significa que a IA decide tudo sozinha. 
+(pausa) A gente consegue colocar validação humana exatamente onde faz sentido.
+
+O fluxo para… espera aprovação… e só continua depois da decisão. 
+
+(foco) Ou seja… a gente não perde controle. 
+
+A gente escolhe onde automatizar… e onde manter decisão humana. 
+
+A DOR
+
+Então não é sobre substituir decisão…  é sobre estruturar melhor como ela acontece. 
+Principalmente em cenários críticos…  onde uma decisão depende de várias validações… 
+e qualquer inconsistência pode gerar impacto relevante… 
+ter essa lógica estruturada e visível faz muita diferença. 
+
+PRINT fluxo inteiro
+
+(mostra a tela do gif o print )
+E tudo isso que a gente está vendo aqui
+
+(muda para tela do JSON)…vira isso.
 
 
-
-Slide 22.2 – PRINT (zoom no ponto de decisão)
-“Aqui.” (pausa)
-“É nesse ponto que o sistema decide o que fazer.” (pausa curta)
-“No modelo tradicional…”
-“isso viraria if, else, validação, exceção…”
-“cada ajuste vira uma nova regra…”
-“e essas regras começam a se espalhar pelo sistema.” (pausa)
-👉 frase forte:
-“Depois de um tempo… ninguém mais tem clareza do comportamento completo.”
-(pausa — deixa isso bater)
-“Aqui não.”
-(aponta) “Aqui a decisão não está escondida em código.”
-“Ela está estruturada.” (pausa curta)
-👉 frase-chave:
-“Isso aqui não é implementação… É a lógica do negócio explicita.”
-(mostra a tela do gif o print )“E tudo isso que a gente está vendo aqui
-(muda para tela do JSON)…vira isso.”
-
-Slide 22.3 – JSON simplificado
+Slide 21 – JSON simplificado
 “Isso aqui é uma versão simplificada… só pra visualizar a estrutura.” (pausa)
 “Mas tudo aquilo que a gente viu no fluxo…está definido aqui.” (pausa curta — aponta partes)
 
 “Percebe que isso não é código?” (pausa)
 “Isso é a definição do comportamento do sistema.”
 “No modelo tradicional…essa lógica estaria espalhada em centenas de pontos diferentes.”
-“muitas vezes implícita… difícil de rastrear… e dependente de quem escreveu.” (pausa)
-
 “Aqui… ela nasce organizada...centralizada... e explícita.”
 
-“E é exatamente isso…” (pausa curta)
-“…que permite que a IA entenda o sistema de verdade.”
-(Fecha o raciocínio) 
-“Ela não precisa interpretar comportamento…”
-“não precisa inferir regra…”
-“não precisa ‘adivinhar’ o que está acontecendo.” (pausa)
-“Ela lê a definição.”
+Isso aqui não é código… é a definição do comportamento do sistema. 
+
+E é exatamente isso…que permite que a IA entenda o sistema de verdade.
+
+Ela não precisa interpretar comportamento…
+não precisa inferir regra…
+não precisa ‘adivinhar’ o que está acontecendo….
+Ela lê a definição.
 
 (Fechamento do bloco - muito importante)
-“E quando a IA deixa de adivinhar…” (pausa)
-“…e passa a operar em cima de uma estrutura clara…”
-“o nível de consistência e confiabilidade muda completamente.” 
 
-SLIDE 23 — O diferencial real
-Isso muda completamente o nível de automação e integração que a gente consegue atingir.
-Não é mais uma ferramenta. É uma mudança de paradigma.
-•	A diferença é simples:
-o	No modelo tradicional a gente adapta a IA ao sistema.
-o	Na nessa abordagem o sistema já nasce pronto para IA.
+E quando a IA deixa de adivinhar…e passa a operar em cima de uma estrutura clara…
+o nível de consistência e confiabilidade muda completamente.
 
-Agora… isso não substitui tudo.
+Side 22 - A plataforma
+
+Esse fluxo aqui é só um exemplo. 
+Mas o ponto não é o fluxo em si… é o modelo.
+Esse mesmo padrão pode ser aplicado para:
+    • Validações operacionais;
+    • Auditoria;
+    • Análise de inconsistência;
+    • Processos internos;
+(pausa leve)
+“ou qualquer cenário onde existe regra e decisão.
+Inclusive… esse exemplo aqui é exatamente o terceiro caso de uso que eu comentei no início… 
+(citação) “automação de processos com decisão”. 
+Mas a plataforma não se limita a isso… isso é só uma das formas de uso. 
+
+
+
+
+
+
+LIMITAÇÕES
+
+Agora… um ponto importante. 
+Essa abordagem não resolve tudo — e nem deveria.
+Ela funciona melhor onde existe lógica clara, regra e decisão estruturada.
+E, na prática, é exatamente aí que está a maior parte da operação.
+Os casos fora disso continuam podendo ser tratados com código tradicional — mas deixam de ser a regra e passam a ser exceção.
 Existem cenários onde código tradicional ainda faz sentido. (pausa)
 Mas o ponto é outro. (pausa leve)
 Hoje a gente usa código pra praticamente tudo…
 …quando grande parte da lógica poderia estar estruturada.
+
+SLIDE 23 — O diferencial real
+Não é mais uma ferramenta. É uma mudança de paradigma.
+    • A diferença é simples:
+        ◦ No modelo tradicional a gente adapta a IA ao sistema.
+        ◦ Na nessa abordagem o sistema já nasce pronto para IA.
 
 SLIDE 24 – Com isso nós temos o impacto máximo na operação
 E quando a gente muda o modelo…
@@ -320,9 +355,6 @@ Isso não elimina todos os desafios…
 mas muda significativamente a forma como a gente lida com eles.
 
 E o ganho aqui não é só incremental…é estrutural.
-
-
-
 
 
 
@@ -378,9 +410,9 @@ Validar rápido.
 E escalar com segurança.
 
 Minha proposta é simples:
-•	“A gente inicia o levantamento agora” 
-•	“Em 6 meses eu entrego o primeiro núcleo funcional do ADA” 
-•	“Com IA operando de verdade dentro do sistema”
+    • “A gente inicia o levantamento agora” 
+    • “Em 6 meses eu entrego o primeiro núcleo funcional do ADA” 
+    • “Com IA operando de verdade dentro do sistema”
 Com um investimento de aproximadamente 30% do que seria gasto no modelo tradicional…
 A empresa vai economizar anos de execução.
 
@@ -396,7 +428,7 @@ Se fizer sentido para você…
 E a gente começa.
 
 
-	Quando ele disser ok:
+    • Quando ele disser ok:
 “Perfeito.”
 (pausa curta)
 “Então vamos começar pelo módulo piloto.”
